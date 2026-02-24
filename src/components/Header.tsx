@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Shield, Github, LogIn, User, LogOut, LayoutDashboard, History, Key, Menu, X, Layers, FileSearch, CreditCard, Tag, Sun, Moon, Monitor } from "lucide-react";
+import { Shield, Github, LogIn, User, LogOut, LayoutDashboard, History, Key, Menu, X, Layers, FileSearch, CreditCard, Tag, Sun, Moon, Monitor, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -82,6 +82,15 @@ export const Header = () => {
               className={cn("font-medium uppercase tracking-wide", isActive("/forensics") && "pointer-events-none")}
             >
               Forensics
+            </Button>
+          </Link>
+          <Link to="/stegocrypt">
+            <Button
+              variant={isActive("/stegocrypt") ? "default" : "ghost"}
+              size="sm"
+              className={cn("font-medium uppercase tracking-wide", isActive("/stegocrypt") && "pointer-events-none")}
+            >
+              Encrypt
             </Button>
           </Link>
           <Link to="/pricing">
@@ -218,6 +227,11 @@ export const Header = () => {
             <Link to="/forensics" onClick={() => setMobileMenuOpen(false)}>
               <Button variant={isActive("/forensics") ? "default" : "ghost"} className="w-full justify-start gap-2 font-medium uppercase tracking-wide">
                 <FileSearch className="h-4 w-4" /> Forensics
+              </Button>
+            </Link>
+            <Link to="/stegocrypt" onClick={() => setMobileMenuOpen(false)}>
+              <Button variant={isActive("/stegocrypt") ? "default" : "ghost"} className="w-full justify-start gap-2 font-medium uppercase tracking-wide">
+                <Lock className="h-4 w-4" /> Encrypt
               </Button>
             </Link>
             <Link to="/pricing" onClick={() => setMobileMenuOpen(false)}>

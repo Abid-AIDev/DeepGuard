@@ -16,6 +16,7 @@ import {
     FileSearch,
     ArrowRight,
     BarChart3,
+    EyeOff,
 } from "lucide-react";
 
 const LandingPage = () => {
@@ -150,6 +151,11 @@ const LandingPage = () => {
                             icon={BarChart3}
                             title="Detailed Reports"
                             description="Get comprehensive JSON reports with artifact analysis, PSNR/SSIM image quality metrics, and processing times."
+                        />
+                        <FeatureCard
+                            icon={EyeOff}
+                            title="Image Encryption"
+                            description="Hide encrypted messages inside images using AES-256 encryption and LSB steganography. Invisible to the naked eye."
                         />
                     </StaggerContainer>
                 </div>
