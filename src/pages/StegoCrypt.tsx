@@ -33,14 +33,14 @@ const StegoCrypt = () => {
             <Header />
 
             {/* Hero */}
-            <section className="border-b-4 border-foreground bg-muted">
+            <section className="border-b border-border bg-muted">
                 <div className="container py-12 md:py-16">
                     <FadeIn>
-                        <div className="mb-2 inline-flex items-center gap-2 border-2 border-foreground bg-background px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-xs">
+                        <div className="mb-2 inline-flex items-center gap-2 border border-border bg-background rounded-md px-3 py-1 text-xs font-bold tracking-wide shadow-xs">
                             <Lock className="h-3 w-3" />
                             AES-256 + LSB Steganography
                         </div>
-                        <h1 className="text-4xl font-bold uppercase leading-tight tracking-tight md:text-5xl">
+                        <h1 className="text-4xl font-extrabold leading-tight tracking-tight md:text-5xl">
                             Image <span className="text-muted-foreground">Encryption</span>
                         </h1>
                         <p className="mt-4 max-w-xl text-muted-foreground">
@@ -50,11 +50,11 @@ const StegoCrypt = () => {
                     </FadeIn>
 
                     {/* Tab Switcher */}
-                    <div className="mt-8 flex border-4 border-foreground shadow-sm">
+                    <div className="mt-8 flex border border-border rounded-lg shadow-sm">
                         <button
                             onClick={() => setTab("encode")}
-                            className={`flex flex-1 items-center justify-center gap-2 py-3 text-sm font-bold uppercase tracking-wide transition-all ${tab === "encode"
-                                    ? "bg-foreground text-background"
+                            className={`flex flex-1 items-center justify-center gap-2 py-3 text-sm font-bold tracking-wide transition-all ${tab === "encode"
+                                    ? "bg-primary text-primary-foreground"
                                     : "bg-card text-muted-foreground hover:bg-accent"
                                 }`}
                         >
@@ -63,8 +63,8 @@ const StegoCrypt = () => {
                         </button>
                         <button
                             onClick={() => setTab("decode")}
-                            className={`flex flex-1 items-center justify-center gap-2 border-l-4 border-foreground py-3 text-sm font-bold uppercase tracking-wide transition-all ${tab === "decode"
-                                    ? "bg-foreground text-background"
+                            className={`flex flex-1 items-center justify-center gap-2 border-l-2 border-primary py-3 text-sm font-bold tracking-wide transition-all ${tab === "decode"
+                                    ? "bg-primary text-primary-foreground"
                                     : "bg-card text-muted-foreground hover:bg-accent"
                                 }`}
                         >
@@ -74,16 +74,16 @@ const StegoCrypt = () => {
                     </div>
 
                     {/* Content */}
-                    <div className="mt-6 border-4 border-foreground bg-card p-6 shadow-md md:p-8">
+                    <div className="mt-6 border border-border bg-card rounded-lg p-6 shadow-md md:p-8">
                         {tab === "encode" ? <EncodePanel /> : <DecodePanel />}
                     </div>
                 </div>
             </section>
 
             {/* How It Works */}
-            <section className="border-b-4 border-foreground">
+            <section className="border-b border-border">
                 <div className="container py-12 md:py-16">
-                    <h2 className="mb-8 text-2xl font-bold uppercase tracking-tight md:text-3xl">
+                    <h2 className="mb-8 text-2xl font-extrabold tracking-tight md:text-3xl">
                         How It Works
                     </h2>
                     <div className="grid gap-6 md:grid-cols-3">
@@ -112,17 +112,17 @@ const StegoCrypt = () => {
                         ].map(({ step, icon: Icon, title, description }) => (
                             <div
                                 key={step}
-                                className="border-4 border-foreground bg-card p-6 shadow-md"
+                                className="border border-border bg-card rounded-lg p-6 shadow-md"
                             >
                                 <div className="mb-3 flex items-center gap-3">
-                                    <div className="border-2 border-foreground bg-accent p-2 shadow-xs">
+                                    <div className="bg-primary/10 rounded-lg p-2 shadow-xs">
                                         <Icon className="h-5 w-5" />
                                     </div>
                                     <span className="font-mono text-2xl font-bold text-muted-foreground">
                                         {step}
                                     </span>
                                 </div>
-                                <h3 className="text-lg font-bold uppercase tracking-wide">{title}</h3>
+                                <h3 className="text-lg font-bold tracking-wide">{title}</h3>
                                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                                     {description}
                                 </p>
@@ -133,9 +133,9 @@ const StegoCrypt = () => {
             </section>
 
             {/* Security Info */}
-            <section className="border-b-4 border-foreground bg-muted">
+            <section className="border-b border-border bg-muted">
                 <div className="container py-12">
-                    <h2 className="mb-6 text-2xl font-bold uppercase tracking-tight">
+                    <h2 className="mb-6 text-2xl font-extrabold tracking-tight">
                         Security Details
                     </h2>
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -147,9 +147,9 @@ const StegoCrypt = () => {
                         ].map(({ label, value }) => (
                             <div
                                 key={label}
-                                className="border-4 border-foreground bg-card p-4 shadow-sm"
+                                className="border border-border bg-card rounded-lg p-4 shadow-sm"
                             >
-                                <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                                <div className="text-xs font-bold tracking-wide text-muted-foreground">
                                     {label}
                                 </div>
                                 <div className="mt-1 font-mono text-lg font-bold">{value}</div>
@@ -160,12 +160,12 @@ const StegoCrypt = () => {
             </section>
 
             {/* Footer */}
-            <footer className="border-t-4 border-foreground bg-card">
+            <footer className="border-t border-border bg-card">
                 <div className="container py-8">
                     <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
                         <div className="flex items-center gap-2">
                             <Shield className="h-5 w-5" />
-                            <span className="font-bold uppercase tracking-wider">DeepGuard AI</span>
+                            <span className="font-bold tracking-wide">DeepGuard AI</span>
                         </div>
                         <p className="text-sm text-muted-foreground">© 2026 DeepGuard AI</p>
                     </div>
@@ -220,12 +220,12 @@ const EncodePanel = () => {
         <div className="space-y-6">
             {/* Upload Zone */}
             <div>
-                <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <label className="mb-2 block text-xs font-bold tracking-wide text-muted-foreground">
                     Carrier Image
                 </label>
                 <div
                     onClick={() => inputRef.current?.click()}
-                    className="relative cursor-pointer border-4 border-dashed border-foreground/30 bg-muted/50 p-8 text-center transition-all hover:border-foreground hover:shadow-sm"
+                    className="relative cursor-pointer border-2 border-dashed border-border bg-muted/50 p-8 text-center transition-all hover:border-primary hover:shadow-sm"
                 >
                     <input
                         ref={inputRef}
@@ -242,7 +242,7 @@ const EncodePanel = () => {
                         />
                     ) : (
                         <div className="flex flex-col items-center gap-3 text-muted-foreground">
-                            <div className="border-2 border-foreground bg-accent p-3 shadow-xs">
+                            <div className="bg-primary/10 rounded-lg p-3 shadow-xs">
                                 <Upload className="h-6 w-6" />
                             </div>
                             <p className="text-sm font-bold uppercase">
@@ -256,7 +256,7 @@ const EncodePanel = () => {
 
             {/* Secret Message */}
             <div>
-                <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <label className="mb-2 block text-xs font-bold tracking-wide text-muted-foreground">
                     Secret Message
                 </label>
                 <textarea
@@ -264,13 +264,13 @@ const EncodePanel = () => {
                     onChange={(e) => setText(e.target.value)}
                     placeholder="Enter your secret message..."
                     rows={3}
-                    className="w-full border-4 border-foreground bg-background p-3 text-sm font-mono shadow-xs placeholder:text-muted-foreground focus:outline-none focus:shadow-md transition-shadow"
+                    className="w-full border border-border bg-background rounded-lg p-3 text-sm font-mono shadow-xs placeholder:text-muted-foreground focus:outline-none focus:shadow-md transition-shadow"
                 />
             </div>
 
             {/* Password */}
             <div>
-                <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <label className="mb-2 block text-xs font-bold tracking-wide text-muted-foreground">
                     Encryption Password
                 </label>
                 <div className="relative">
@@ -280,7 +280,7 @@ const EncodePanel = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Enter encryption key..."
-                        className="w-full border-4 border-foreground bg-background py-2.5 pl-10 pr-3 text-sm font-mono shadow-xs placeholder:text-muted-foreground focus:outline-none focus:shadow-md transition-shadow"
+                        className="w-full border border-border bg-background rounded-lg py-2.5 pl-10 pr-3 text-sm font-mono shadow-xs placeholder:text-muted-foreground focus:outline-none focus:shadow-md transition-shadow"
                     />
                 </div>
             </div>
@@ -297,7 +297,7 @@ const EncodePanel = () => {
             <Button
                 onClick={handleEncode}
                 disabled={loading || !file || !text || !password}
-                className="w-full gap-2 border-4 border-foreground py-3 text-sm font-bold uppercase tracking-wide shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-40"
+                className="w-full gap-2 border border-border rounded-lg py-3 text-sm font-bold tracking-wide shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-40"
             >
                 {loading ? (
                     <>
@@ -315,19 +315,19 @@ const EncodePanel = () => {
             {/* Result */}
             {resultURL && (
                 <div className="space-y-4 border-4 border-chart-2 bg-chart-2/5 p-6 shadow-md">
-                    <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-chart-2">
+                    <div className="flex items-center gap-2 text-sm font-bold tracking-wide text-chart-2">
                         <CheckCircle2 className="h-4 w-4" />
                         Message Hidden Successfully
                     </div>
                     <img
                         src={resultURL}
                         alt="Encoded"
-                        className="mx-auto max-h-48 border-2 border-foreground object-contain shadow-xs"
+                        className="mx-auto max-h-48 border border-border rounded-md object-contain shadow-xs"
                     />
                     <a
                         href={resultURL}
                         download="stego-output.png"
-                        className="flex items-center justify-center gap-2 border-4 border-foreground bg-foreground px-4 py-2.5 text-sm font-bold uppercase text-background shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                        className="flex items-center justify-center gap-2 bg-primary text-primary-foreground rounded-lg px-4 py-2.5 text-sm font-bold uppercase text-background shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg"
                     >
                         <Download className="h-4 w-4" />
                         Download Image
@@ -389,12 +389,12 @@ const DecodePanel = () => {
         <div className="space-y-6">
             {/* Upload Zone */}
             <div>
-                <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <label className="mb-2 block text-xs font-bold tracking-wide text-muted-foreground">
                     Encoded Image
                 </label>
                 <div
                     onClick={() => inputRef.current?.click()}
-                    className="relative cursor-pointer border-4 border-dashed border-foreground/30 bg-muted/50 p-8 text-center transition-all hover:border-foreground hover:shadow-sm"
+                    className="relative cursor-pointer border-2 border-dashed border-border bg-muted/50 p-8 text-center transition-all hover:border-primary hover:shadow-sm"
                 >
                     <input
                         ref={inputRef}
@@ -411,7 +411,7 @@ const DecodePanel = () => {
                         />
                     ) : (
                         <div className="flex flex-col items-center gap-3 text-muted-foreground">
-                            <div className="border-2 border-foreground bg-accent p-3 shadow-xs">
+                            <div className="bg-primary/10 rounded-lg p-3 shadow-xs">
                                 <Upload className="h-6 w-6" />
                             </div>
                             <p className="text-sm font-bold uppercase">
@@ -425,7 +425,7 @@ const DecodePanel = () => {
 
             {/* Password */}
             <div>
-                <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <label className="mb-2 block text-xs font-bold tracking-wide text-muted-foreground">
                     Decryption Password
                 </label>
                 <div className="relative">
@@ -435,7 +435,7 @@ const DecodePanel = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Enter decryption key..."
-                        className="w-full border-4 border-foreground bg-background py-2.5 pl-10 pr-3 text-sm font-mono shadow-xs placeholder:text-muted-foreground focus:outline-none focus:shadow-md transition-shadow"
+                        className="w-full border border-border bg-background rounded-lg py-2.5 pl-10 pr-3 text-sm font-mono shadow-xs placeholder:text-muted-foreground focus:outline-none focus:shadow-md transition-shadow"
                     />
                 </div>
             </div>
@@ -452,7 +452,7 @@ const DecodePanel = () => {
             <Button
                 onClick={handleDecode}
                 disabled={loading || !file || !password}
-                className="w-full gap-2 border-4 border-foreground py-3 text-sm font-bold uppercase tracking-wide shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-40"
+                className="w-full gap-2 border border-border rounded-lg py-3 text-sm font-bold tracking-wide shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-40"
             >
                 {loading ? (
                     <>
@@ -470,11 +470,11 @@ const DecodePanel = () => {
             {/* Result */}
             {decoded !== null && (
                 <div className="space-y-3 border-4 border-chart-2 bg-chart-2/5 p-6 shadow-md">
-                    <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-chart-2">
+                    <div className="flex items-center gap-2 text-sm font-bold tracking-wide text-chart-2">
                         <CheckCircle2 className="h-4 w-4" />
                         Hidden Message Revealed
                     </div>
-                    <div className="whitespace-pre-wrap border-4 border-foreground bg-muted p-4 font-mono text-sm shadow-xs">
+                    <div className="whitespace-pre-wrap border border-border bg-muted rounded-lg p-4 font-mono text-sm shadow-xs">
                         {decoded}
                     </div>
                 </div>

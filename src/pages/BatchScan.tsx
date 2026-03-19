@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Header } from "@/components/Header";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -16,6 +16,8 @@ import {
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { loadModel, detectDeepfake, isModelLoaded } from "@/lib/detector";
+import { Progress } from "@/components/ui/progress";
 
 interface BatchResult {
     filename: string;
@@ -33,6 +35,22 @@ const BatchScan = () => {
     const [progress, setProgress] = useState({ current: 0, total: 0 });
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { toast } = useToast();
+    const [modelReady, setModelReady] = useState(false);
+    const [modelLoadProgress, setModelLoadProgress] = useState(0);
+
+    // Load model on mount
+    useEffect(() => {
+        if (isModelLoaded()) {
+            setModelReady(true);
+            return;
+        }
+        loadModel((p) => {
+            if (p.progress) setModelLoadProgress(Math.round(p.progress));
+            if (p.status === "done") { setModelReady(true); setModelLoadProgress(100); }
+        }).then(() => setModelReady(true)).catch(() => {
+            toast({ title: "Model Load Failed", description: "Could not load AI model.", variant: "destructive" });
+        });
+    }, []);
 
     const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selected = Array.from(e.target.files || []).filter((f) =>
@@ -64,41 +82,44 @@ const BatchScan = () => {
     };
 
     const handleProcess = async () => {
-        if (files.length === 0) return;
+        if (files.length === 0 || !modelReady) return;
 
         setIsProcessing(true);
         setProgress({ current: 0, total: files.length });
+        const batchResults: BatchResult[] = [];
 
-        const formData = new FormData();
-        files.forEach((file) => formData.append("files", file));
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            setProgress({ current: i, total: files.length });
 
-        try {
-            const response = await fetch("/api/verify/batch", {
-                method: "POST",
-                body: formData,
-            });
-
-            if (!response.ok) {
-                throw new Error("Batch processing failed");
+            try {
+                const result = await detectDeepfake(file);
+                batchResults.push({
+                    filename: file.name,
+                    status: "success",
+                    verdict: result.verdict,
+                    confidence: result.confidence,
+                    processing_time_ms: result.processing_time_ms,
+                });
+            } catch (error) {
+                batchResults.push({
+                    filename: file.name,
+                    status: "error",
+                    error: error instanceof Error ? error.message : "Analysis failed",
+                });
             }
 
-            const data = await response.json();
-            setResults(data.results);
-            setProgress({ current: data.total, total: data.total });
-
-            toast({
-                title: "Batch Complete",
-                description: `${data.total} images processed.`,
-            });
-        } catch (error) {
-            toast({
-                title: "Processing Failed",
-                description: error instanceof Error ? error.message : "An error occurred.",
-                variant: "destructive",
-            });
-        } finally {
-            setIsProcessing(false);
+            // Update results in real-time
+            setResults([...batchResults]);
         }
+
+        setProgress({ current: files.length, total: files.length });
+        setIsProcessing(false);
+
+        toast({
+            title: "Batch Complete",
+            description: `${files.length} images processed client-side.`,
+        });
     };
 
     const exportCSV = () => {
@@ -127,21 +148,21 @@ const BatchScan = () => {
         <div className="min-h-screen bg-background">
             <Header />
 
-            <section className="border-b-4 border-foreground bg-muted">
+            <section className="border-b border-border bg-muted">
                 <div className="container py-12 md:py-16">
                     <Link
                         to="/"
-                        className="mb-8 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
+                        className="mb-8 inline-flex items-center gap-2 text-sm font-bold tracking-wide text-muted-foreground transition-colors hover:text-foreground"
                     >
                         <ArrowLeft className="h-4 w-4" />
                         Back to Home
                     </Link>
 
-                    <div className="mb-4 inline-flex w-fit items-center gap-2 border-2 border-foreground bg-background px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-xs">
+                    <div className="mb-4 inline-flex w-fit items-center gap-2 border border-border bg-background rounded-md px-3 py-1 text-xs font-bold tracking-wide shadow-xs">
                         <Shield className="h-3 w-3" />
                         Batch Scanner
                     </div>
-                    <h1 className="text-4xl font-bold uppercase leading-tight tracking-tight md:text-5xl mb-2">
+                    <h1 className="text-4xl font-extrabold leading-tight tracking-tight md:text-5xl mb-2">
                         Batch <span className="text-muted-foreground">Processing</span>
                     </h1>
                     <p className="max-w-xl text-lg text-muted-foreground mb-8">
@@ -152,7 +173,7 @@ const BatchScan = () => {
                     <div
                         onDragOver={(e) => e.preventDefault()}
                         onDrop={handleDrop}
-                        className="border-4 border-dashed border-foreground bg-card p-8 text-center shadow-md mb-8 cursor-pointer hover:bg-accent/30 transition-colors"
+                        className="border-2 border-dashed border-border bg-card p-8 text-center shadow-md mb-8 cursor-pointer hover:bg-accent/30 transition-colors"
                         onClick={() => fileInputRef.current?.click()}
                     >
                         <input
@@ -164,15 +185,15 @@ const BatchScan = () => {
                             className="hidden"
                         />
                         <Upload className="mx-auto h-10 w-10 text-muted-foreground mb-4" />
-                        <p className="text-lg font-bold uppercase">Drop images here or click to browse</p>
+                        <p className="text-lg font-bold">Drop images here or click to browse</p>
                         <p className="text-sm text-muted-foreground mt-2">PNG, JPG, WEBP — up to 20 images, 20MB each</p>
                     </div>
 
                     {/* Selected Files */}
                     {files.length > 0 && results.length === 0 && (
-                        <div className="border-4 border-foreground bg-card p-6 shadow-md mb-8">
+                        <div className="border border-border bg-card rounded-lg p-6 shadow-md mb-8">
                             <div className="flex items-center justify-between mb-4">
-                                <h3 className="text-lg font-bold uppercase">{files.length} Images Selected</h3>
+                                <h3 className="text-lg font-bold">{files.length} Images Selected</h3>
                                 <div className="flex gap-2">
                                     <Button variant="outline" size="sm" onClick={() => { setFiles([]); setResults([]); }}>
                                         <Trash2 className="mr-2 h-3.5 w-3.5" /> Clear
@@ -188,7 +209,7 @@ const BatchScan = () => {
                             </div>
                             <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2">
                                 {files.map((file, i) => (
-                                    <div key={i} className="border-2 border-foreground p-2 text-center text-xs">
+                                    <div key={i} className="border border-border rounded-md p-2 text-center text-xs">
                                         <FileImage className="mx-auto h-6 w-6 text-muted-foreground mb-1" />
                                         <p className="truncate font-bold">{file.name}</p>
                                         <p className="text-muted-foreground">{(file.size / 1024).toFixed(0)}KB</p>
@@ -200,14 +221,14 @@ const BatchScan = () => {
 
                     {/* Progress */}
                     {isProcessing && (
-                        <div className="border-4 border-foreground bg-card p-6 shadow-md mb-8">
+                        <div className="border border-border bg-card rounded-lg p-6 shadow-md mb-8">
                             <div className="flex items-center gap-3 mb-3">
                                 <Loader2 className="h-5 w-5 animate-spin" />
                                 <span className="font-bold uppercase">
                                     Processing {progress.current}/{progress.total}...
                                 </span>
                             </div>
-                            <div className="h-3 w-full border-2 border-foreground bg-muted overflow-hidden">
+                            <div className="h-3 w-full border border-border rounded-md bg-muted overflow-hidden">
                                 <div
                                     className="h-full bg-foreground transition-all duration-300"
                                     style={{ width: `${(progress.current / Math.max(progress.total, 1)) * 100}%` }}
@@ -218,9 +239,9 @@ const BatchScan = () => {
 
                     {/* Results Table */}
                     {results.length > 0 && (
-                        <div className="border-4 border-foreground bg-card shadow-md">
-                            <div className="flex items-center justify-between border-b-4 border-foreground p-4">
-                                <h3 className="text-lg font-bold uppercase">Results ({results.length})</h3>
+                        <div className="border border-border bg-card rounded-lg shadow-md">
+                            <div className="flex items-center justify-between border-b border-border p-4">
+                                <h3 className="text-lg font-bold">Results ({results.length})</h3>
                                 <Button variant="outline" size="sm" onClick={exportCSV}>
                                     <Download className="mr-2 h-3.5 w-3.5" /> Export CSV
                                 </Button>
@@ -229,12 +250,12 @@ const BatchScan = () => {
                             <div className="overflow-x-auto">
                                 <table className="w-full text-sm">
                                     <thead>
-                                        <tr className="border-b-2 border-foreground bg-muted text-left">
-                                            <th className="px-4 py-3 font-bold uppercase tracking-wider">#</th>
-                                            <th className="px-4 py-3 font-bold uppercase tracking-wider">Filename</th>
-                                            <th className="px-4 py-3 font-bold uppercase tracking-wider">Verdict</th>
-                                            <th className="px-4 py-3 font-bold uppercase tracking-wider">Confidence</th>
-                                            <th className="px-4 py-3 font-bold uppercase tracking-wider">Time</th>
+                                        <tr className="border-b border-border bg-muted text-left">
+                                            <th className="px-4 py-3 font-bold tracking-wide">#</th>
+                                            <th className="px-4 py-3 font-bold tracking-wide">Filename</th>
+                                            <th className="px-4 py-3 font-bold tracking-wide">Verdict</th>
+                                            <th className="px-4 py-3 font-bold tracking-wide">Confidence</th>
+                                            <th className="px-4 py-3 font-bold tracking-wide">Time</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -272,7 +293,7 @@ const BatchScan = () => {
                             </div>
 
                             {/* Summary */}
-                            <div className="border-t-2 border-foreground bg-muted p-4 grid grid-cols-3 gap-4 text-center">
+                            <div className="border-t border-border bg-muted p-4 grid grid-cols-3 gap-4 text-center">
                                 <div>
                                     <div className="text-2xl font-bold text-chart-1 font-mono">
                                         {results.filter((r) => r.verdict === "VERIFIED_AI").length}
@@ -297,12 +318,12 @@ const BatchScan = () => {
                 </div>
             </section>
 
-            <footer className="border-t-4 border-foreground bg-card">
+            <footer className="border-t border-border bg-card">
                 <div className="container py-8">
                     <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
                         <div className="flex items-center gap-2">
                             <Shield className="h-5 w-5" />
-                            <span className="font-bold uppercase tracking-wider">DeepGuard AI</span>
+                            <span className="font-bold tracking-wide">DeepGuard AI</span>
                         </div>
                         <p className="text-sm text-muted-foreground">© 2026 DeepGuard AI</p>
                     </div>

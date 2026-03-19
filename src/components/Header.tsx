@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Shield, Github, LogIn, User, LogOut, LayoutDashboard, History, Key, Menu, X, Layers, FileSearch, CreditCard, Tag, Sun, Moon, Monitor, Lock } from "lucide-react";
+import { Shield, Github, LogIn, User, LogOut, LayoutDashboard, History, Key, Menu, X, Layers, FileSearch, CreditCard, Tag, Sun, Moon, Monitor, Lock, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -25,20 +25,20 @@ export const Header = () => {
   const isDashboard = location.pathname.startsWith("/dashboard");
 
   return (
-    <header className="border-b-4 border-foreground bg-card">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
-          <div className="border-2 border-foreground bg-background p-1.5 shadow-xs">
+          <div className="border border-border bg-background rounded-md p-1.5 shadow-xs">
             <Shield className="h-6 w-6" />
           </div>
-          <span className="text-xl font-bold uppercase tracking-wider">
+          <span className="text-xl font-bold tracking-wide">
             DeepGuard AI
           </span>
         </Link>
 
         {/* Mobile Menu Toggle */}
         <button
-          className="sm:hidden border-2 border-foreground p-1.5"
+          className="sm:hidden border border-border rounded-md p-1.5"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -73,6 +73,15 @@ export const Header = () => {
               className={cn("font-medium uppercase tracking-wide", isActive("/batch") && "pointer-events-none")}
             >
               Batch
+            </Button>
+          </Link>
+          <Link to="/ai-detect">
+            <Button
+              variant={isActive("/ai-detect") ? "default" : "ghost"}
+              size="sm"
+              className={cn("font-medium uppercase tracking-wide", isActive("/ai-detect") && "pointer-events-none")}
+            >
+              AI Detect
             </Button>
           </Link>
           <Link to="/forensics">
@@ -119,7 +128,7 @@ export const Header = () => {
               <div className="relative">
                 <button
                   onClick={() => setShowDropdown(!showDropdown)}
-                  className="flex items-center gap-2 border-2 border-foreground px-3 py-1.5 text-sm font-bold uppercase tracking-wide shadow-xs hover:bg-accent"
+                  className="flex items-center gap-2 border border-border rounded-md px-3 py-1.5 text-sm font-bold tracking-wide shadow-xs hover:bg-accent"
                 >
                   <User className="h-4 w-4" />
                   <span className="max-w-[120px] truncate">
@@ -130,8 +139,8 @@ export const Header = () => {
                 {showDropdown && (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setShowDropdown(false)} />
-                    <div className="absolute right-0 top-full z-50 mt-2 w-56 border-4 border-foreground bg-card shadow-lg">
-                      <div className="border-b-2 border-foreground p-3">
+                    <div className="absolute right-0 top-full z-50 mt-2 w-56 border border-border bg-card rounded-lg shadow-lg">
+                      <div className="border-b border-border p-3">
                         <p className="text-xs font-bold uppercase text-muted-foreground">
                           Signed in as
                         </p>
@@ -141,7 +150,7 @@ export const Header = () => {
                         <Link
                           to="/dashboard"
                           onClick={() => setShowDropdown(false)}
-                          className="flex items-center gap-2 px-3 py-2 text-sm font-bold uppercase tracking-wide hover:bg-accent"
+                          className="flex items-center gap-2 px-3 py-2 text-sm font-bold tracking-wide hover:bg-accent"
                         >
                           <LayoutDashboard className="h-4 w-4" />
                           Dashboard
@@ -149,7 +158,7 @@ export const Header = () => {
                         <Link
                           to="/dashboard/history"
                           onClick={() => setShowDropdown(false)}
-                          className="flex items-center gap-2 px-3 py-2 text-sm font-bold uppercase tracking-wide hover:bg-accent"
+                          className="flex items-center gap-2 px-3 py-2 text-sm font-bold tracking-wide hover:bg-accent"
                         >
                           <History className="h-4 w-4" />
                           Scan History
@@ -157,7 +166,7 @@ export const Header = () => {
                         <Link
                           to="/dashboard/api-keys"
                           onClick={() => setShowDropdown(false)}
-                          className="flex items-center gap-2 px-3 py-2 text-sm font-bold uppercase tracking-wide hover:bg-accent"
+                          className="flex items-center gap-2 px-3 py-2 text-sm font-bold tracking-wide hover:bg-accent"
                         >
                           <Key className="h-4 w-4" />
                           API Keys
@@ -165,16 +174,16 @@ export const Header = () => {
                         <Link
                           to="/dashboard/billing"
                           onClick={() => setShowDropdown(false)}
-                          className="flex items-center gap-2 px-3 py-2 text-sm font-bold uppercase tracking-wide hover:bg-accent"
+                          className="flex items-center gap-2 px-3 py-2 text-sm font-bold tracking-wide hover:bg-accent"
                         >
                           <CreditCard className="h-4 w-4" />
                           Billing
                         </Link>
                       </div>
-                      <div className="border-t-2 border-foreground p-1">
+                      <div className="border-t border-border p-1">
                         <button
                           onClick={() => { setShowDropdown(false); signOut(); }}
-                          className="flex w-full items-center gap-2 px-3 py-2 text-sm font-bold uppercase tracking-wide text-destructive hover:bg-destructive/10"
+                          className="flex w-full items-center gap-2 px-3 py-2 text-sm font-bold tracking-wide text-destructive hover:bg-destructive/10"
                         >
                           <LogOut className="h-4 w-4" />
                           Sign Out
@@ -205,7 +214,7 @@ export const Header = () => {
 
       {/* Mobile Nav */}
       {mobileMenuOpen && (
-        <div className="border-t-2 border-foreground bg-card p-4 sm:hidden">
+        <div className="border-t border-border bg-card p-4 sm:hidden">
           <div className="flex flex-col gap-2">
             <Button
               variant="ghost"
@@ -222,6 +231,11 @@ export const Header = () => {
             <Link to="/batch" onClick={() => setMobileMenuOpen(false)}>
               <Button variant={isActive("/batch") ? "default" : "ghost"} className="w-full justify-start gap-2 font-medium uppercase tracking-wide">
                 <Layers className="h-4 w-4" /> Batch
+              </Button>
+            </Link>
+            <Link to="/ai-detect" onClick={() => setMobileMenuOpen(false)}>
+              <Button variant={isActive("/ai-detect") ? "default" : "ghost"} className="w-full justify-start gap-2 font-medium uppercase tracking-wide">
+                <Sparkles className="h-4 w-4" /> AI Detect
               </Button>
             </Link>
             <Link to="/forensics" onClick={() => setMobileMenuOpen(false)}>

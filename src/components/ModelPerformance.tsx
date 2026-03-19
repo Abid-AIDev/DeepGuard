@@ -1,147 +1,150 @@
-import { Cpu, BarChart3 } from "lucide-react";
+import { Cpu, Sparkles } from "lucide-react";
+import { FadeIn } from "@/components/Animations";
 
-const metrics = [
+const deepfakeMetrics = [
     { label: "Realism", precision: "96.83%", recall: "87.08%", f1: "91.70%" },
     { label: "Deepfake", precision: "88.26%", recall: "97.15%", f1: "92.49%" },
 ];
 
+const aiDetectMetrics = [
+    { label: "Artificial", precision: "—", recall: "—", f1: "—" },
+    { label: "Deepfake", precision: "—", recall: "—", f1: "—" },
+    { label: "Real", precision: "—", recall: "—", f1: "—" },
+];
+
 export const ModelPerformance = () => {
     return (
-        <section className="border-b-4 border-foreground">
+        <section>
+            <div className="section-divider" />
             <div className="container py-16 md:py-24">
                 <div className="mb-12 text-center">
-                    <h2 className="text-3xl font-bold uppercase tracking-tight md:text-4xl">
-                        Model Performance
+                    <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
+                        Model <span className="gradient-text">Performance</span>
                     </h2>
                     <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-                        Our Vision Transformer achieves state-of-the-art accuracy in
-                        deepfake detection, trained on 56,000+ images from 4,800+
-                        generators.
+                        Two Vision Transformer models running in your browser via Transformers.js
+                        and ONNX Runtime Web — no server required.
                     </p>
                 </div>
 
                 <div className="grid gap-8 lg:grid-cols-2">
-                    {/* Model Info Card */}
-                    <div className="border-4 border-foreground bg-card p-8 shadow-md">
-                        <div className="mb-6 flex items-center gap-3">
-                            <div className="border-2 border-foreground bg-accent p-2 shadow-xs">
-                                <Cpu className="h-5 w-5" />
+                    {/* Deepfake Detector Card */}
+                    <FadeIn>
+                        <div className="border border-border bg-card rounded-lg p-8 shadow-sm card-glow">
+                            <div className="mb-6 flex items-center gap-3">
+                                <div className="bg-primary/10 rounded-lg p-2">
+                                    <Cpu className="h-5 w-5 text-primary" />
+                                </div>
+                                <h3 className="text-lg font-bold tracking-wide">
+                                    Deepfake Detector
+                                </h3>
                             </div>
-                            <h3 className="text-lg font-bold uppercase tracking-wide">
-                                Model Details
-                            </h3>
-                        </div>
 
-                        <div className="space-y-4 text-sm">
-                            <div className="flex justify-between border-b border-border pb-3">
-                                <span className="text-muted-foreground">Model</span>
-                                <span className="font-mono font-bold">
-                                    Deep-Fake-Detector-v2
-                                </span>
+                            <div className="space-y-4 text-sm">
+                                <div className="flex justify-between border-b border-border pb-3">
+                                    <span className="text-muted-foreground">Model</span>
+                                    <span className="font-mono font-bold">Deep-Fake-Detector-v2</span>
+                                </div>
+                                <div className="flex justify-between border-b border-border pb-3">
+                                    <span className="text-muted-foreground">Architecture</span>
+                                    <span className="font-mono font-bold">ViT-Base (16×16)</span>
+                                </div>
+                                <div className="flex justify-between border-b border-border pb-3">
+                                    <span className="text-muted-foreground">Classes</span>
+                                    <span className="font-mono font-bold">2 (Real / Deepfake)</span>
+                                </div>
+                                <div className="flex justify-between border-b border-border pb-3">
+                                    <span className="text-muted-foreground">Format</span>
+                                    <span className="font-mono font-bold">ONNX (quantized)</span>
+                                </div>
+                                <div className="flex justify-between border-b border-border pb-3">
+                                    <span className="text-muted-foreground">Runtime</span>
+                                    <span className="font-mono font-bold">Transformers.js</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-muted-foreground">Overall Accuracy</span>
+                                    <span className="font-mono text-lg font-bold gradient-text">92.12%</span>
+                                </div>
                             </div>
-                            <div className="flex justify-between border-b border-border pb-3">
-                                <span className="text-muted-foreground">Architecture</span>
-                                <span className="font-mono font-bold">
-                                    ViT-Base (Patch 16×16)
-                                </span>
-                            </div>
-                            <div className="flex justify-between border-b border-border pb-3">
-                                <span className="text-muted-foreground">Base Model</span>
-                                <span className="font-mono font-bold">
-                                    google/vit-base-patch16-224
-                                </span>
-                            </div>
-                            <div className="flex justify-between border-b border-border pb-3">
-                                <span className="text-muted-foreground">Input Size</span>
-                                <span className="font-mono font-bold">224 × 224 RGB</span>
-                            </div>
-                            <div className="flex justify-between border-b border-border pb-3">
-                                <span className="text-muted-foreground">Classification</span>
-                                <span className="font-mono font-bold">Binary (Real / Fake)</span>
-                            </div>
-                            <div className="flex justify-between">
-                                <span className="text-muted-foreground">Overall Accuracy</span>
-                                <span className="font-mono text-lg font-bold">92.12%</span>
-                            </div>
-                        </div>
-                    </div>
 
-                    {/* Classification Metrics Card */}
-                    <div className="border-4 border-foreground bg-card p-8 shadow-md">
-                        <div className="mb-6 flex items-center gap-3">
-                            <div className="border-2 border-foreground bg-accent p-2 shadow-xs">
-                                <BarChart3 className="h-5 w-5" />
+                            {/* Metrics Table */}
+                            <div className="mt-6 overflow-hidden rounded-lg border border-border">
+                                <div className="grid grid-cols-4 aurora-gradient text-white">
+                                    <div className="p-3 text-xs font-semibold uppercase tracking-wider">Class</div>
+                                    <div className="p-3 text-center text-xs font-semibold uppercase tracking-wider">Precision</div>
+                                    <div className="p-3 text-center text-xs font-semibold uppercase tracking-wider">Recall</div>
+                                    <div className="p-3 text-center text-xs font-semibold uppercase tracking-wider">F1</div>
+                                </div>
+                                {deepfakeMetrics.map(({ label, precision, recall, f1 }) => (
+                                    <div key={label} className="grid grid-cols-4 border-b border-border last:border-b-0">
+                                        <div className="p-3 font-semibold text-sm">{label}</div>
+                                        <div className="p-3 text-center font-mono text-sm">{precision}</div>
+                                        <div className="p-3 text-center font-mono text-sm">{recall}</div>
+                                        <div className="p-3 text-center font-mono text-sm font-bold">{f1}</div>
+                                    </div>
+                                ))}
                             </div>
-                            <h3 className="text-lg font-bold uppercase tracking-wide">
-                                Classification Metrics
-                            </h3>
                         </div>
+                    </FadeIn>
 
-                        {/* Table */}
-                        <div className="border-2 border-foreground">
-                            <div className="grid grid-cols-4 border-b-2 border-foreground bg-foreground text-background">
-                                <div className="p-3 text-xs font-bold uppercase tracking-wider">
-                                    Class
+                    {/* AI Image Detector Card */}
+                    <FadeIn delay={0.15}>
+                        <div className="border border-border bg-card rounded-lg p-8 shadow-sm card-glow">
+                            <div className="mb-6 flex items-center gap-3">
+                                <div className="bg-primary/10 rounded-lg p-2">
+                                    <Sparkles className="h-5 w-5 text-primary" />
                                 </div>
-                                <div className="p-3 text-center text-xs font-bold uppercase tracking-wider">
-                                    Precision
-                                </div>
-                                <div className="p-3 text-center text-xs font-bold uppercase tracking-wider">
-                                    Recall
-                                </div>
-                                <div className="p-3 text-center text-xs font-bold uppercase tracking-wider">
-                                    F1-Score
-                                </div>
+                                <h3 className="text-lg font-bold tracking-wide">
+                                    AI Image Detector
+                                </h3>
                             </div>
-                            {metrics.map(({ label, precision, recall, f1 }) => (
-                                <div
-                                    key={label}
-                                    className="grid grid-cols-4 border-b border-border last:border-b-0"
-                                >
-                                    <div className="p-3 font-bold uppercase text-sm">
-                                        {label}
-                                    </div>
-                                    <div className="p-3 text-center font-mono text-sm">
-                                        {precision}
-                                    </div>
-                                    <div className="p-3 text-center font-mono text-sm">
-                                        {recall}
-                                    </div>
-                                    <div className="p-3 text-center font-mono text-sm font-bold">
-                                        {f1}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
 
-                        {/* Visual bars */}
-                        <div className="mt-6 space-y-4">
-                            <div>
-                                <div className="flex items-center justify-between text-sm">
-                                    <span className="font-bold uppercase">Realism Detection</span>
-                                    <span className="font-mono">91.70%</span>
+                            <div className="space-y-4 text-sm">
+                                <div className="flex justify-between border-b border-border pb-3">
+                                    <span className="text-muted-foreground">Model</span>
+                                    <span className="font-mono font-bold">AI-vs-Deepfake-vs-Real</span>
                                 </div>
-                                <div className="mt-1.5 h-4 border-2 border-foreground">
-                                    <div
-                                        className="h-full bg-foreground"
-                                        style={{ width: "91.7%" }}
-                                    />
+                                <div className="flex justify-between border-b border-border pb-3">
+                                    <span className="text-muted-foreground">Architecture</span>
+                                    <span className="font-mono font-bold">ViT-Base (16×16)</span>
+                                </div>
+                                <div className="flex justify-between border-b border-border pb-3">
+                                    <span className="text-muted-foreground">Classes</span>
+                                    <span className="font-mono font-bold">3 (Art / Fake / Real)</span>
+                                </div>
+                                <div className="flex justify-between border-b border-border pb-3">
+                                    <span className="text-muted-foreground">Format</span>
+                                    <span className="font-mono font-bold">ONNX (quantized)</span>
+                                </div>
+                                <div className="flex justify-between border-b border-border pb-3">
+                                    <span className="text-muted-foreground">Runtime</span>
+                                    <span className="font-mono font-bold">Transformers.js</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span className="text-muted-foreground">Input Size</span>
+                                    <span className="font-mono text-lg font-bold gradient-text">224 × 224</span>
                                 </div>
                             </div>
-                            <div>
-                                <div className="flex items-center justify-between text-sm">
-                                    <span className="font-bold uppercase">Deepfake Detection</span>
-                                    <span className="font-mono">92.49%</span>
+
+                            {/* Classes Table */}
+                            <div className="mt-6 overflow-hidden rounded-lg border border-border">
+                                <div className="grid grid-cols-4 aurora-gradient text-white">
+                                    <div className="p-3 text-xs font-semibold uppercase tracking-wider">Class</div>
+                                    <div className="p-3 text-center text-xs font-semibold uppercase tracking-wider">Precision</div>
+                                    <div className="p-3 text-center text-xs font-semibold uppercase tracking-wider">Recall</div>
+                                    <div className="p-3 text-center text-xs font-semibold uppercase tracking-wider">F1</div>
                                 </div>
-                                <div className="mt-1.5 h-4 border-2 border-foreground">
-                                    <div
-                                        className="h-full bg-foreground"
-                                        style={{ width: "92.49%" }}
-                                    />
-                                </div>
+                                {aiDetectMetrics.map(({ label, precision, recall, f1 }) => (
+                                    <div key={label} className="grid grid-cols-4 border-b border-border last:border-b-0">
+                                        <div className="p-3 font-semibold text-sm">{label}</div>
+                                        <div className="p-3 text-center font-mono text-sm">{precision}</div>
+                                        <div className="p-3 text-center font-mono text-sm">{recall}</div>
+                                        <div className="p-3 text-center font-mono text-sm font-bold">{f1}</div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                    </div>
+                    </FadeIn>
                 </div>
             </div>
         </section>

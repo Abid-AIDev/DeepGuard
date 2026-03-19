@@ -35,14 +35,14 @@ const MODELS = [
 export const ModelSelector = ({ selectedModel, onModelChange }: ModelSelectorProps) => {
     return (
         <div className="space-y-2">
-            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+            <label className="text-xs font-bold tracking-wide text-muted-foreground">
                 Detection Model
             </label>
             <div className="relative">
                 <select
                     value={selectedModel}
                     onChange={(e) => onModelChange(e.target.value)}
-                    className="w-full appearance-none border-2 border-foreground bg-background px-4 py-2.5 pr-10 text-sm font-bold uppercase tracking-wide shadow-xs focus:outline-none focus:ring-2 focus:ring-foreground cursor-pointer"
+                    className="w-full appearance-none border border-border bg-background rounded-md px-4 py-2.5 pr-10 text-sm font-bold tracking-wide shadow-xs focus:outline-none focus:ring-2 focus:ring-foreground cursor-pointer"
                 >
                     {MODELS.map((model) => (
                         <option key={model.id} value={model.id}>
@@ -57,9 +57,9 @@ export const ModelSelector = ({ selectedModel, onModelChange }: ModelSelectorPro
             {MODELS.filter((m) => m.id === selectedModel).map((model) => (
                 <div
                     key={model.id}
-                    className="flex items-start gap-3 border-2 border-dashed border-foreground/30 bg-muted/50 px-3 py-2"
+                    className="flex items-start gap-3 border border-dashed border-border bg-muted/50 px-3 py-2"
                 >
-                    <span className="mt-0.5 inline-block border border-foreground bg-accent px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider">
+                    <span className="mt-0.5 inline-block bg-primary/10 rounded-md px-1.5 py-0.5 text-[10px] font-bold tracking-wide">
                         {model.badge}
                     </span>
                     <p className="text-xs text-muted-foreground">{model.description}</p>

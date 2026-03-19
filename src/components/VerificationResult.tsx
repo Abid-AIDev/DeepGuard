@@ -75,7 +75,7 @@ const VerdictBadge = ({ verdict, confidence }: { verdict: VerificationData["verd
   return (
     <div className={cn("border-4 p-6 text-center shadow-md", bgClass)}>
       <Icon className={cn("mx-auto h-12 w-12", textClass)} />
-      <h2 className={cn("mt-3 text-2xl font-bold uppercase tracking-wider", textClass)}>
+      <h2 className={cn("mt-3 text-2xl font-bold tracking-wide", textClass)}>
         {label}
       </h2>
       <div className="mt-4">
@@ -109,7 +109,7 @@ export const VerificationResult = ({ data, onReset }: VerificationResultProps) =
         <>
           <button
             onClick={() => setShowHeatmap(!showHeatmap)}
-            className="flex w-full items-center justify-between border-4 border-foreground bg-destructive/10 p-4 font-bold uppercase transition-all hover:bg-destructive/20"
+            className="flex w-full items-center justify-between border border-destructive bg-destructive rounded-lg/10 p-4 font-bold uppercase transition-all hover:bg-destructive/20"
           >
             <span className="flex items-center gap-2">
               <Flame className="h-5 w-5 text-destructive" />
@@ -118,7 +118,7 @@ export const VerificationResult = ({ data, onReset }: VerificationResultProps) =
             {showHeatmap ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
           </button>
           {showHeatmap && (
-            <div className="border-4 border-foreground bg-card p-6 shadow-md">
+            <div className="border border-border bg-card rounded-lg p-6 shadow-md">
               <HeatmapOverlay heatmapBase64={data.heatmap_base64} />
             </div>
           )}
@@ -126,15 +126,15 @@ export const VerificationResult = ({ data, onReset }: VerificationResultProps) =
       )}
 
       {/* Summary */}
-      <div className="border-4 border-foreground bg-card p-6 shadow-md">
-        <h3 className="flex items-center gap-2 text-lg font-bold uppercase">
+      <div className="border border-border bg-card rounded-lg p-6 shadow-md">
+        <h3 className="flex items-center gap-2 text-lg font-bold">
           <FileText className="h-5 w-5" />
           Analysis Summary
         </h3>
         <ul className="mt-4 space-y-3">
           {data.reasons.map((reason, i) => (
             <li key={i} className="flex items-start gap-3 text-sm">
-              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center border-2 border-foreground bg-accent font-mono text-xs font-bold">
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center bg-primary/10 rounded-lg font-mono text-xs font-bold">
                 {i + 1}
               </span>
               <span>{reason}</span>
@@ -144,8 +144,8 @@ export const VerificationResult = ({ data, onReset }: VerificationResultProps) =
       </div>
 
       {/* Watermark Status */}
-      <div className="border-4 border-foreground bg-card p-6 shadow-md">
-        <h3 className="flex items-center gap-2 text-lg font-bold uppercase">
+      <div className="border border-border bg-card rounded-lg p-6 shadow-md">
+        <h3 className="flex items-center gap-2 text-lg font-bold">
           <Shield className="h-5 w-5" />
           Watermark Status
         </h3>
@@ -180,7 +180,7 @@ export const VerificationResult = ({ data, onReset }: VerificationResultProps) =
       {/* Technical Details Toggle */}
       <button
         onClick={() => setShowTechnical(!showTechnical)}
-        className="flex w-full items-center justify-between border-4 border-foreground bg-muted p-4 font-bold uppercase transition-all hover:bg-accent"
+        className="flex w-full items-center justify-between border border-border bg-muted rounded-lg p-4 font-bold uppercase transition-all hover:bg-accent"
       >
         <span>Technical Details</span>
         {showTechnical ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
@@ -189,8 +189,8 @@ export const VerificationResult = ({ data, onReset }: VerificationResultProps) =
       {showTechnical && (
         <div className="space-y-4">
           {/* Detection Model */}
-          <div className="border-4 border-foreground bg-card p-6 shadow-md">
-            <h3 className="text-lg font-bold uppercase">Detection Model</h3>
+          <div className="border border-border bg-card rounded-lg p-6 shadow-md">
+            <h3 className="text-lg font-bold">Detection Model</h3>
             <div className="mt-4 grid gap-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Model</span>
@@ -215,7 +215,7 @@ export const VerificationResult = ({ data, onReset }: VerificationResultProps) =
                     {data.detection.artifact_types.map((artifact) => (
                       <span
                         key={artifact}
-                        className="border-2 border-foreground bg-accent px-2 py-1 font-mono text-xs uppercase"
+                        className="bg-primary/10 rounded-lg px-2 py-1 font-mono text-xs uppercase"
                       >
                         {artifact.replace(/_/g, " ")}
                       </span>
@@ -227,14 +227,14 @@ export const VerificationResult = ({ data, onReset }: VerificationResultProps) =
           </div>
 
           {/* Image Quality */}
-          <div className="border-4 border-foreground bg-card p-6 shadow-md">
-            <h3 className="text-lg font-bold uppercase">Image Quality Metrics</h3>
+          <div className="border border-border bg-card rounded-lg p-6 shadow-md">
+            <h3 className="text-lg font-bold">Image Quality Metrics</h3>
             <div className="mt-4 grid grid-cols-2 gap-4">
-              <div className="border-2 border-foreground p-4 text-center">
+              <div className="border border-border rounded-md p-4 text-center">
                 <div className="text-2xl font-bold font-mono">{data.image_quality.psnr.toFixed(1)}</div>
                 <div className="mt-1 text-xs text-muted-foreground uppercase">PSNR (dB)</div>
               </div>
-              <div className="border-2 border-foreground p-4 text-center">
+              <div className="border border-border rounded-md p-4 text-center">
                 <div className="text-2xl font-bold font-mono">{data.image_quality.ssim.toFixed(2)}</div>
                 <div className="mt-1 text-xs text-muted-foreground uppercase">SSIM</div>
               </div>
@@ -242,7 +242,7 @@ export const VerificationResult = ({ data, onReset }: VerificationResultProps) =
           </div>
 
           {/* Processing Info */}
-          <div className="flex items-center justify-between border-4 border-foreground bg-muted p-4 text-sm">
+          <div className="flex items-center justify-between border border-border bg-muted rounded-lg p-4 text-sm">
             <span className="text-muted-foreground">Processing Time</span>
             <span className="font-mono font-bold">{data.processing_time_ms}ms</span>
           </div>

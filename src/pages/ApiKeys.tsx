@@ -123,11 +123,11 @@ const ApiKeys = () => {
         <div className="min-h-screen bg-background">
             <Header />
 
-            <section className="border-b-4 border-foreground bg-muted">
+            <section className="border-b border-border bg-muted">
                 <div className="container py-12">
                     <Link
                         to="/dashboard"
-                        className="mb-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
+                        className="mb-6 inline-flex items-center gap-2 text-sm font-bold tracking-wide text-muted-foreground transition-colors hover:text-foreground"
                     >
                         <ArrowLeft className="h-4 w-4" />
                         Back to Dashboard
@@ -135,7 +135,7 @@ const ApiKeys = () => {
 
                     <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div>
-                            <h1 className="text-3xl font-bold uppercase tracking-tight">
+                            <h1 className="text-3xl font-extrabold tracking-tight">
                                 API Keys
                             </h1>
                             <p className="mt-1 text-sm text-muted-foreground">
@@ -162,7 +162,7 @@ const ApiKeys = () => {
                                 This key will only be shown once. Copy it now and store it securely.
                             </p>
                             <div className="flex items-center gap-2">
-                                <code className="flex-1 border-2 border-foreground bg-background px-3 py-2 font-mono text-sm">
+                                <code className="flex-1 border border-border bg-background rounded-md px-3 py-2 font-mono text-sm">
                                     {createdKey}
                                 </code>
                                 <Button
@@ -183,11 +183,11 @@ const ApiKeys = () => {
 
                     {/* Create Form */}
                     {showCreateForm && !createdKey && (
-                        <div className="mb-6 border-4 border-foreground bg-card p-6 shadow-md">
+                        <div className="mb-6 border border-border bg-card rounded-lg p-6 shadow-md">
                             <h3 className="mb-4 font-bold uppercase">Create New API Key</h3>
                             <div className="flex gap-3">
                                 <div className="flex-1 space-y-2">
-                                    <Label htmlFor="keyName" className="text-xs font-bold uppercase tracking-wider">
+                                    <Label htmlFor="keyName" className="text-xs font-bold tracking-wide">
                                         Key Name
                                     </Label>
                                     <Input
@@ -195,7 +195,7 @@ const ApiKeys = () => {
                                         placeholder="e.g. Production API, My App"
                                         value={newKeyName}
                                         onChange={(e) => setNewKeyName(e.target.value)}
-                                        className="border-2 border-foreground"
+                                        className="border border-border rounded-md"
                                     />
                                 </div>
                             </div>
@@ -224,11 +224,11 @@ const ApiKeys = () => {
                     {loading ? (
                         <div className="space-y-3">
                             {[1, 2, 3].map((i) => (
-                                <div key={i} className="h-20 animate-pulse border-4 border-foreground/20 bg-accent" />
+                                <div key={i} className="h-20 animate-pulse border border-border/30 rounded-lg bg-accent" />
                             ))}
                         </div>
                     ) : keys.length === 0 ? (
-                        <div className="border-4 border-dashed border-foreground/30 p-12 text-center">
+                        <div className="border-2 border-dashed border-border p-12 text-center">
                             <Key className="mx-auto h-12 w-12 text-muted-foreground" />
                             <p className="mt-4 font-bold uppercase text-muted-foreground">
                                 No API keys yet
@@ -242,19 +242,19 @@ const ApiKeys = () => {
                             {keys.map((apiKey) => (
                                 <div
                                     key={apiKey.id}
-                                    className={`border-4 border-foreground bg-card p-5 shadow-sm ${!apiKey.is_active ? "opacity-60" : ""
+                                    className={`border border-border bg-card rounded-lg p-5 shadow-sm ${!apiKey.is_active ? "opacity-60" : ""
                                         }`}
                                 >
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-4">
-                                            <div className="border-2 border-foreground bg-accent p-2 shadow-xs">
+                                            <div className="bg-primary/10 rounded-lg p-2 shadow-xs">
                                                 <Key className="h-4 w-4" />
                                             </div>
                                             <div>
                                                 <div className="flex items-center gap-2">
                                                     <p className="font-bold">{apiKey.name}</p>
                                                     {!apiKey.is_active && (
-                                                        <span className="border border-foreground/40 px-1.5 py-0.5 text-[10px] font-bold uppercase text-muted-foreground">
+                                                        <span className="border border-border px-1.5 py-0.5 text-[10px] font-bold uppercase text-muted-foreground">
                                                             Disabled
                                                         </span>
                                                     )}
@@ -297,7 +297,7 @@ const ApiKeys = () => {
                     )}
 
                     {/* Usage Doc */}
-                    <div className="mt-8 border-4 border-foreground bg-foreground p-6 text-background shadow-md">
+                    <div className="mt-8 bg-primary text-primary-foreground rounded-lg p-6 text-background shadow-md">
                         <h3 className="mb-3 font-bold uppercase">Using Your API Key</h3>
                         <pre className="overflow-x-auto font-mono text-sm leading-relaxed text-background/90">
                             <code>{`curl -X POST \\
@@ -309,12 +309,12 @@ const ApiKeys = () => {
                 </div>
             </section>
 
-            <footer className="border-t-4 border-foreground bg-card">
+            <footer className="border-t border-border bg-card">
                 <div className="container py-8">
                     <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
                         <div className="flex items-center gap-2">
                             <Shield className="h-5 w-5" />
-                            <span className="font-bold uppercase tracking-wider">DeepGuard AI</span>
+                            <span className="font-bold tracking-wide">DeepGuard AI</span>
                         </div>
                         <p className="text-sm text-muted-foreground">© 2026 DeepGuard AI.</p>
                     </div>

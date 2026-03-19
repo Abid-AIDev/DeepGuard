@@ -1,68 +1,70 @@
-import { Newspaper, Landmark, Smartphone, Building2 } from "lucide-react";
+import { Newspaper, ShieldCheck, Palette, Building2 } from "lucide-react";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/Animations";
 
 const useCases = [
     {
         icon: Newspaper,
         title: "Journalism & Media",
         description:
-            "Verify image authenticity before publishing. Protect editorial integrity and prevent misinformation from spreading through manipulated visuals.",
+            "Verify image authenticity before publishing. All analysis runs locally — never risk exposing sensitive sources or unpublished images.",
     },
     {
-        icon: Landmark,
-        title: "Government & Law Enforcement",
+        icon: ShieldCheck,
+        title: "Digital Forensics",
         description:
-            "Detect manipulated evidence in legal proceedings. Ensure the integrity of visual documentation in investigations and court cases.",
+            "Run ELA, noise analysis, EXIF extraction, and integrity scoring on evidence images. No cloud dependency — results stay on your machine.",
     },
     {
-        icon: Smartphone,
-        title: "Social Media Platforms",
+        icon: Palette,
+        title: "Content Creators",
         description:
-            "Automate content moderation at scale. Flag AI-generated images in user uploads to combat deepfake-driven disinformation campaigns.",
+            "Protect your original work. Detect if your images have been AI-manipulated, and embed encrypted watermarks via StegoCrypt to prove ownership.",
     },
     {
         icon: Building2,
-        title: "Enterprise & Compliance",
+        title: "Privacy-First Organizations",
         description:
-            "Protect your brand from AI-generated fraud. Verify identity documents, marketing materials, and user-submitted content.",
+            "Zero data leaves the browser. Ideal for healthcare, legal, government, and education where image data is sensitive and regulated.",
     },
 ];
 
 export const UseCases = () => {
     return (
-        <section className="border-b-4 border-foreground bg-muted">
+        <section className="bg-muted/50">
+            <div className="section-divider" />
             <div className="container py-16 md:py-24">
                 <div className="mb-12 text-center">
-                    <h2 className="text-3xl font-bold uppercase tracking-tight md:text-4xl">
-                        Who Is It For?
+                    <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
+                        Who Is It <span className="gradient-text">For</span>?
                     </h2>
                     <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-                        DeepGuard AI serves organizations and individuals who need reliable
-                        deepfake detection across diverse industries.
+                        DeepGuard AI serves anyone who needs reliable image verification
+                        without compromising privacy or uploading sensitive data.
                     </p>
                 </div>
 
-                <div className="grid gap-6 sm:grid-cols-2">
+                <StaggerContainer className="grid gap-6 sm:grid-cols-2">
                     {useCases.map(({ icon: Icon, title, description }) => (
-                        <div
+                        <StaggerItem
                             key={title}
-                            className="flex gap-5 border-4 border-foreground bg-card p-6 shadow-md transition-all hover:-translate-y-1 hover:shadow-lg"
+                            className="flex gap-5 border border-border bg-card rounded-lg p-6 shadow-sm card-glow transition-all"
                         >
                             <div className="shrink-0">
-                                <div className="border-2 border-foreground bg-accent p-3 shadow-xs">
-                                    <Icon className="h-6 w-6" />
+                                <div className="bg-primary/10 rounded-lg p-3">
+                                    <Icon className="h-6 w-6 text-primary" />
                                 </div>
                             </div>
                             <div>
-                                <h3 className="text-lg font-bold uppercase tracking-wide">
+                                <h3 className="text-lg font-bold tracking-wide">
                                     {title}
                                 </h3>
                                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                                     {description}
                                 </p>
                             </div>
-                        </div>
+                        </StaggerItem>
                     ))}
-                </div>
+                </StaggerContainer>
             </div>
         </section>
     );

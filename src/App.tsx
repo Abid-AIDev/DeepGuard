@@ -11,6 +11,7 @@ import LandingPage from "./pages/LandingPage";
 import DeepfakeScan from "./pages/DeepfakeScan";
 import BatchScan from "./pages/BatchScan";
 import ForensicsToolkit from "./pages/ForensicsToolkit";
+import AIImageDetect from "./pages/AIImageDetect";
 import StegoCrypt from "./pages/StegoCrypt";
 import Pricing from "./pages/Pricing";
 import Login from "./pages/Login";
@@ -37,6 +38,7 @@ const App = () => (
                 <Route path="/deepfake" element={<DeepfakeScan />} />
                 <Route path="/batch" element={<BatchScan />} />
                 <Route path="/forensics" element={<ForensicsToolkit />} />
+                <Route path="/ai-detect" element={<AIImageDetect />} />
                 <Route path="/stegocrypt" element={<StegoCrypt />} />
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/login" element={<Login />} />

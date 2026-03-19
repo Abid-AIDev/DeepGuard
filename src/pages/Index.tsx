@@ -75,15 +75,15 @@ const Index = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="border-b-4 border-foreground bg-muted">
+      <section className="border-b border-border bg-muted">
         <div className="container py-16 md:py-24">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             <div className="flex flex-col justify-center">
-              <div className="mb-4 inline-flex w-fit items-center gap-2 border-2 border-foreground bg-background px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-xs">
+              <div className="mb-4 inline-flex w-fit items-center gap-2 border border-border bg-background rounded-md px-3 py-1 text-xs font-bold tracking-wide shadow-xs">
                 <Shield className="h-3 w-3" />
                 Deepfake Detection
               </div>
-              <h1 className="text-4xl font-bold uppercase leading-tight tracking-tight md:text-5xl lg:text-6xl">
+              <h1 className="text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl">
                 Detect
                 <br />
                 <span className="text-muted-foreground">Deepfakes</span>
@@ -95,14 +95,14 @@ const Index = () => {
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <a
                   href="#verify"
-                  className="inline-flex items-center gap-2 border-4 border-foreground bg-foreground px-6 py-3 font-bold uppercase text-background shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow-sm"
+                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground rounded-lg px-6 py-3 font-bold uppercase text-background shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow-sm"
                 >
                   Scan Image
                   <ArrowRight className="h-4 w-4" />
                 </a>
                 <a
                   href="#features"
-                  className="inline-flex items-center gap-2 border-4 border-foreground bg-background px-6 py-3 font-bold uppercase shadow-md transition-all hover:bg-accent"
+                  className="inline-flex items-center gap-2 border border-border bg-background rounded-lg px-6 py-3 font-bold uppercase shadow-md transition-all hover:bg-accent"
                 >
                   Learn More
                 </a>
@@ -115,8 +115,8 @@ const Index = () => {
                 {result ? (
                   <VerificationResult data={result} onReset={handleReset} />
                 ) : (
-                  <div className="border-4 border-foreground bg-card p-6 shadow-lg md:p-8">
-                    <h2 className="mb-6 text-xl font-bold uppercase tracking-wide">
+                  <div className="border border-border bg-card rounded-lg p-6 shadow-lg md:p-8">
+                    <h2 className="mb-6 text-xl font-bold tracking-wide">
                       Scan for Deepfakes
                     </h2>
                     <ImageUpload onImageSelect={handleImageSelect} isLoading={isLoading} />
@@ -129,10 +129,10 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="border-b-4 border-foreground">
+      <section id="features" className="border-b border-border">
         <div className="container py-16 md:py-24">
           <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold uppercase tracking-tight md:text-4xl">
+            <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
               How It Works
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
@@ -177,7 +177,7 @@ const Index = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-foreground text-background">
+      <section className="bg-primary text-primary-foreground">
         <div className="container py-12">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             <div className="text-center">
@@ -201,12 +201,12 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t-4 border-foreground bg-card">
+      <footer className="border-t border-border bg-card">
         <div className="container py-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="flex items-center gap-2">
               <Shield className="h-5 w-5" />
-              <span className="font-bold uppercase tracking-wider">DeepGuard AI</span>
+              <span className="font-bold tracking-wide">DeepGuard AI</span>
             </div>
             <p className="text-sm text-muted-foreground">
               © 2026 DeepGuard AI. Powered by Vision Transformer.

@@ -14,10 +14,10 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
         return (
             <div className="flex min-h-screen items-center justify-center bg-background">
                 <div className="flex flex-col items-center gap-4">
-                    <div className="border-4 border-foreground bg-card p-4 shadow-md animate-pulse">
+                    <div className="border border-border bg-card rounded-lg p-4 shadow-md animate-pulse">
                         <Shield className="h-8 w-8" />
                     </div>
-                    <p className="font-bold uppercase tracking-wider text-muted-foreground">
+                    <p className="font-bold tracking-wide text-muted-foreground">
                         Loading...
                     </p>
                 </div>

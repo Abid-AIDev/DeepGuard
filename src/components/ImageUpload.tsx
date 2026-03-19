@@ -59,10 +59,10 @@ export const ImageUpload = ({ onImageSelect, isLoading }: ImageUploadProps) => {
 
   if (preview) {
     return (
-      <div className="relative border-4 border-foreground bg-card p-4 shadow-md">
+      <div className="relative border border-border bg-card rounded-lg p-4 shadow-md">
         <button 
           onClick={handleClear}
-          className="absolute -right-3 -top-3 z-10 border-2 border-foreground bg-background p-1 shadow-xs transition-all hover:shadow-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+          className="absolute -right-3 -top-3 z-10 border border-border bg-background rounded-md p-1 shadow-xs transition-all hover:shadow-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
         >
           <X className="h-4 w-4" />
         </button>
@@ -100,7 +100,7 @@ export const ImageUpload = ({ onImageSelect, isLoading }: ImageUploadProps) => {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={cn(
-          "relative flex min-h-[280px] cursor-pointer flex-col items-center justify-center border-4 border-dashed border-foreground bg-card p-8 transition-all",
+          "relative flex min-h-[280px] cursor-pointer flex-col items-center justify-center border-2 border-dashed border-border bg-card p-8 transition-all",
           isDragging && "border-solid bg-accent shadow-md",
           "hover:bg-accent"
         )}
@@ -112,11 +112,11 @@ export const ImageUpload = ({ onImageSelect, isLoading }: ImageUploadProps) => {
           className="absolute inset-0 cursor-pointer opacity-0"
         />
         <div className="pointer-events-none flex flex-col items-center gap-4">
-          <div className="border-4 border-foreground bg-background p-4 shadow-sm">
+          <div className="border border-border bg-background rounded-lg p-4 shadow-sm">
             <Upload className="h-10 w-10" />
           </div>
           <div className="text-center">
-            <p className="text-lg font-bold uppercase tracking-wider">
+            <p className="text-lg font-bold tracking-wide">
               Drop image here
             </p>
             <p className="mt-1 text-sm text-muted-foreground">

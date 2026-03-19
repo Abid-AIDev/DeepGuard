@@ -131,12 +131,12 @@ const Dashboard = () => {
         <div className="min-h-screen bg-background">
             <Header />
 
-            <section className="border-b-4 border-foreground bg-muted">
+            <section className="border-b border-border bg-muted">
                 <div className="container py-12">
                     {/* Welcome + Plan Badge */}
                     <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
                         <div>
-                            <h1 className="text-3xl font-bold uppercase tracking-tight">
+                            <h1 className="text-3xl font-extrabold tracking-tight">
                                 Dashboard
                             </h1>
                             <p className="mt-2 text-muted-foreground">
@@ -144,14 +144,14 @@ const Dashboard = () => {
                             </p>
                         </div>
                         <Link to="/dashboard/billing">
-                            <div className="flex items-center gap-3 border-4 border-foreground bg-card px-4 py-3 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                            <div className="flex items-center gap-3 border border-border bg-card rounded-lg px-4 py-3 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                                 <Zap className="h-5 w-5" />
                                 <div>
-                                    <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Plan</div>
+                                    <div className="text-xs font-bold tracking-wide text-muted-foreground">Plan</div>
                                     <div className="font-bold uppercase">{plan}</div>
                                 </div>
                                 <div className="ml-4 w-20">
-                                    <div className="h-2 w-full border border-foreground bg-muted overflow-hidden">
+                                    <div className="h-2 w-full border border-border rounded-md bg-muted overflow-hidden">
                                         <div
                                             className="h-full bg-chart-2 transition-all"
                                             style={{ width: `${plan === "enterprise" ? 100 : Math.min((scanCount / (plan === "business" ? 10000 : plan === "pro" ? 1000 : 50)) * 100, 100)}%` }}
@@ -170,17 +170,17 @@ const Dashboard = () => {
                         {statCards.map(({ label, value, icon: Icon }) => (
                             <div
                                 key={label}
-                                className="border-4 border-foreground bg-card p-6 shadow-md"
+                                className="border border-border bg-card rounded-lg p-6 shadow-md"
                             >
                                 <div className="flex items-center justify-between">
-                                    <div className="border-2 border-foreground bg-accent p-2 shadow-xs">
+                                    <div className="bg-primary/10 rounded-lg p-2 shadow-xs">
                                         <Icon className="h-5 w-5" />
                                     </div>
                                     <span className="font-mono text-3xl font-bold">
                                         {loading ? "—" : value}
                                     </span>
                                 </div>
-                                <p className="mt-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                                <p className="mt-3 text-xs font-bold tracking-wide text-muted-foreground">
                                     {label}
                                 </p>
                             </div>
@@ -189,13 +189,13 @@ const Dashboard = () => {
                 </div>
             </section>
 
-            <section className="border-b-4 border-foreground">
+            <section className="border-b border-border">
                 <div className="container py-12">
                     <div className="grid gap-8 lg:grid-cols-3">
                         {/* Recent Scans */}
                         <div className="lg:col-span-2">
                             <div className="mb-4 flex items-center justify-between">
-                                <h2 className="text-xl font-bold uppercase tracking-wide">
+                                <h2 className="text-xl font-bold tracking-wide">
                                     Recent Scans
                                 </h2>
                                 <Link to="/dashboard/history">
@@ -209,11 +209,11 @@ const Dashboard = () => {
                             {loading ? (
                                 <div className="space-y-3">
                                     {[1, 2, 3].map((i) => (
-                                        <div key={i} className="h-16 animate-pulse border-4 border-foreground/20 bg-accent" />
+                                        <div key={i} className="h-16 animate-pulse border border-border/30 rounded-lg bg-accent" />
                                     ))}
                                 </div>
                             ) : recentScans.length === 0 ? (
-                                <div className="border-4 border-dashed border-foreground/30 p-8 text-center">
+                                <div className="border-2 border-dashed border-border p-8 text-center">
                                     <ScanSearch className="mx-auto h-10 w-10 text-muted-foreground" />
                                     <p className="mt-3 font-bold uppercase text-muted-foreground">
                                         No scans yet
@@ -235,7 +235,7 @@ const Dashboard = () => {
                                         return (
                                             <div
                                                 key={scan.id}
-                                                className="flex items-center justify-between border-4 border-foreground bg-card p-4 shadow-sm"
+                                                className="flex items-center justify-between border border-border bg-card rounded-lg p-4 shadow-sm"
                                             >
                                                 <div className="flex items-center gap-4">
                                                     <span className={`border-2 px-2 py-0.5 text-xs font-bold uppercase ${config.className}`}>
@@ -267,14 +267,14 @@ const Dashboard = () => {
 
                         {/* Quick Actions */}
                         <div>
-                            <h2 className="mb-4 text-xl font-bold uppercase tracking-wide">
+                            <h2 className="mb-4 text-xl font-bold tracking-wide">
                                 Quick Actions
                             </h2>
                             <div className="space-y-3">
                                 <Link to="/deepfake" className="block">
-                                    <div className="flex items-center justify-between border-4 border-foreground bg-card p-4 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
+                                    <div className="flex items-center justify-between border border-border bg-card rounded-lg p-4 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
                                         <div className="flex items-center gap-3">
-                                            <div className="border-2 border-foreground bg-accent p-2 shadow-xs">
+                                            <div className="bg-primary/10 rounded-lg p-2 shadow-xs">
                                                 <ScanSearch className="h-4 w-4" />
                                             </div>
                                             <span className="font-bold uppercase text-sm">New Scan</span>
@@ -283,9 +283,9 @@ const Dashboard = () => {
                                     </div>
                                 </Link>
                                 <Link to="/dashboard/api-keys" className="block">
-                                    <div className="flex items-center justify-between border-4 border-foreground bg-card p-4 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
+                                    <div className="flex items-center justify-between border border-border bg-card rounded-lg p-4 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
                                         <div className="flex items-center gap-3">
-                                            <div className="border-2 border-foreground bg-accent p-2 shadow-xs">
+                                            <div className="bg-primary/10 rounded-lg p-2 shadow-xs">
                                                 <Key className="h-4 w-4" />
                                             </div>
                                             <span className="font-bold uppercase text-sm">API Keys</span>
@@ -294,9 +294,9 @@ const Dashboard = () => {
                                     </div>
                                 </Link>
                                 <Link to="/dashboard/history" className="block">
-                                    <div className="flex items-center justify-between border-4 border-foreground bg-card p-4 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
+                                    <div className="flex items-center justify-between border border-border bg-card rounded-lg p-4 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
                                         <div className="flex items-center gap-3">
-                                            <div className="border-2 border-foreground bg-accent p-2 shadow-xs">
+                                            <div className="bg-primary/10 rounded-lg p-2 shadow-xs">
                                                 <History className="h-4 w-4" />
                                             </div>
                                             <span className="font-bold uppercase text-sm">Scan History</span>
@@ -305,9 +305,9 @@ const Dashboard = () => {
                                     </div>
                                 </Link>
                                 <Link to="/dashboard/billing" className="block">
-                                    <div className="flex items-center justify-between border-4 border-foreground bg-card p-4 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
+                                    <div className="flex items-center justify-between border border-border bg-card rounded-lg p-4 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg">
                                         <div className="flex items-center gap-3">
-                                            <div className="border-2 border-foreground bg-accent p-2 shadow-xs">
+                                            <div className="bg-primary/10 rounded-lg p-2 shadow-xs">
                                                 <CreditCard className="h-4 w-4" />
                                             </div>
                                             <span className="font-bold uppercase text-sm">Billing</span>
@@ -322,12 +322,12 @@ const Dashboard = () => {
             </section>
 
             {/* Footer */}
-            <footer className="border-t-4 border-foreground bg-card">
+            <footer className="border-t border-border bg-card">
                 <div className="container py-8">
                     <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
                         <div className="flex items-center gap-2">
                             <Shield className="h-5 w-5" />
-                            <span className="font-bold uppercase tracking-wider">DeepGuard AI</span>
+                            <span className="font-bold tracking-wide">DeepGuard AI</span>
                         </div>
                         <p className="text-sm text-muted-foreground">
                             © 2026 DeepGuard AI. Powered by Vision Transformer.

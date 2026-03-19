@@ -127,21 +127,29 @@ async def verify_batch(
 @app.post("/api/forensics")
 async def analyze_forensics(file: UploadFile = File(...)):
     """
-    Run forensic analysis on an image: metadata, ELA, noise analysis.
+    Run comprehensive forensic analysis on an image:
+    metadata, ELA, noise, histogram, and integrity scoring.
     """
-    from forensics import extract_metadata, error_level_analysis, noise_analysis
+    from forensics import (
+        extract_metadata, error_level_analysis, noise_analysis,
+        generate_histogram, compute_integrity_score,
+    )
     
     image, contents = await _load_image(file)
     
     try:
-        metadata = extract_metadata(image)
+        metadata = extract_metadata(image, contents)
         ela_b64 = error_level_analysis(contents)
         noise_b64 = noise_analysis(image)
+        histogram_b64 = generate_histogram(image)
+        integrity = compute_integrity_score(metadata, contents, image)
         
         return JSONResponse(content={
             "metadata": metadata,
             "ela_base64": ela_b64,
             "noise_base64": noise_b64,
+            "histogram_base64": histogram_b64,
+            "integrity": integrity,
         })
     except Exception as e:
         print(f"❌ Forensics error: {e}")

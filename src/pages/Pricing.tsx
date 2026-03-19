@@ -162,13 +162,13 @@ const Pricing = () => {
             <Header />
 
             {/* Hero */}
-            <section className="border-b-4 border-foreground bg-muted">
+            <section className="border-b border-border bg-muted">
                 <div className="container py-16 text-center">
-                    <div className="mb-4 inline-flex items-center gap-2 border-2 border-foreground bg-background px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-xs">
+                    <div className="mb-4 inline-flex items-center gap-2 border border-border bg-background rounded-md px-3 py-1 text-xs font-bold tracking-wide shadow-xs">
                         <Shield className="h-3 w-3" />
                         Pricing
                     </div>
-                    <h1 className="text-4xl font-bold uppercase tracking-tight md:text-5xl">
+                    <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">
                         Simple, Transparent<br />
                         <span className="text-muted-foreground">Pricing</span>
                     </h1>
@@ -179,7 +179,7 @@ const Pricing = () => {
             </section>
 
             {/* Plans Grid */}
-            <section className="border-b-4 border-foreground">
+            <section className="border-b border-border">
                 <div className="container py-16">
                     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                         {PLANS.map((plan) => {
@@ -190,28 +190,28 @@ const Pricing = () => {
                                 <div
                                     key={plan.id}
                                     className={cn(
-                                        "relative flex flex-col border-4 border-foreground bg-card shadow-md transition-transform hover:-translate-y-1",
+                                        "relative flex flex-col border border-border bg-card rounded-lg shadow-md transition-transform hover:-translate-y-1",
                                         plan.highlighted && "ring-4 ring-foreground ring-offset-4 ring-offset-background"
                                     )}
                                 >
                                     {/* Popular badge */}
                                     {plan.highlighted && (
-                                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 border-2 border-foreground bg-foreground px-4 py-1 text-xs font-bold uppercase tracking-wider text-background">
+                                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 border border-border rounded-md bg-foreground px-4 py-1 text-xs font-bold tracking-wide text-background">
                                             Most Popular
                                         </div>
                                     )}
 
                                     {isCurrent && (
-                                        <div className="absolute -top-4 right-4 border-2 border-chart-2 bg-chart-2 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+                                        <div className="absolute -top-4 right-4 border-2 border-chart-2 bg-chart-2 px-3 py-1 text-xs font-bold tracking-wide text-white">
                                             Current Plan
                                         </div>
                                     )}
 
                                     {/* Header */}
-                                    <div className="border-b-2 border-foreground p-6">
+                                    <div className="border-b border-border p-6">
                                         <div className="flex items-center gap-2 mb-2">
                                             <Icon className="h-5 w-5" />
-                                            <h3 className="text-lg font-bold uppercase tracking-wider">{plan.name}</h3>
+                                            <h3 className="text-lg font-bold tracking-wide">{plan.name}</h3>
                                         </div>
                                         <div className="flex items-baseline gap-1">
                                             <span className="text-4xl font-bold font-mono">{plan.price}</span>
@@ -221,7 +221,7 @@ const Pricing = () => {
                                     </div>
 
                                     {/* Limits */}
-                                    <div className="border-b-2 border-foreground bg-muted/50 p-4 text-sm">
+                                    <div className="border-b border-border bg-muted/50 p-4 text-sm">
                                         <div className="flex justify-between">
                                             <span className="text-muted-foreground">Scans/mo</span>
                                             <span className="font-bold font-mono">
@@ -260,8 +260,8 @@ const Pricing = () => {
                                             onClick={() => handlePlanAction(plan.id)}
                                             disabled={isCurrent}
                                             className={cn(
-                                                "w-full gap-2 font-bold uppercase tracking-wide",
-                                                plan.highlighted && !isCurrent && "bg-foreground text-background hover:bg-foreground/90"
+                                                "w-full gap-2 font-bold tracking-wide",
+                                                plan.highlighted && !isCurrent && "bg-primary text-primary-foreground hover:bg-foreground/90"
                                             )}
                                             variant={plan.highlighted ? "default" : "outline"}
                                         >
@@ -277,23 +277,23 @@ const Pricing = () => {
             </section>
 
             {/* FAQ */}
-            <section className="border-b-4 border-foreground bg-muted">
+            <section className="border-b border-border bg-muted">
                 <div className="container py-16">
-                    <h2 className="mb-8 text-center text-3xl font-bold uppercase tracking-tight">
+                    <h2 className="mb-8 text-center text-3xl font-extrabold tracking-tight">
                         Frequently Asked <span className="text-muted-foreground">Questions</span>
                     </h2>
                     <div className="mx-auto max-w-2xl space-y-3">
                         {FAQ.map((item, i) => (
-                            <div key={i} className="border-4 border-foreground bg-card shadow-xs">
+                            <div key={i} className="border border-border bg-card rounded-lg shadow-xs">
                                 <button
                                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                                    className="flex w-full items-center justify-between p-4 text-left font-bold uppercase tracking-wide text-sm hover:bg-accent"
+                                    className="flex w-full items-center justify-between p-4 text-left font-bold tracking-wide text-sm hover:bg-accent"
                                 >
                                     {item.q}
                                     <span className="ml-4 shrink-0 font-mono">{openFaq === i ? "−" : "+"}</span>
                                 </button>
                                 {openFaq === i && (
-                                    <div className="border-t-2 border-foreground bg-muted/50 p-4 text-sm text-muted-foreground">
+                                    <div className="border-t border-border bg-muted/50 p-4 text-sm text-muted-foreground">
                                         {item.a}
                                     </div>
                                 )}
@@ -304,12 +304,12 @@ const Pricing = () => {
             </section>
 
             {/* Footer */}
-            <footer className="border-t-4 border-foreground bg-card">
+            <footer className="border-t border-border bg-card">
                 <div className="container py-8">
                     <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
                         <div className="flex items-center gap-2">
                             <Shield className="h-5 w-5" />
-                            <span className="font-bold uppercase tracking-wider">DeepGuard AI</span>
+                            <span className="font-bold tracking-wide">DeepGuard AI</span>
                         </div>
                         <p className="text-sm text-muted-foreground">© 2026 DeepGuard AI</p>
                     </div>

@@ -41,10 +41,10 @@ const features = [
 
 export const DeveloperAPI = () => {
     return (
-        <section className="border-b-4 border-foreground bg-muted">
+        <section className="border-b border-border bg-muted">
             <div className="container py-16 md:py-24">
                 <div className="mb-12 text-center">
-                    <h2 className="text-3xl font-bold uppercase tracking-tight md:text-4xl">
+                    <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
                         Integrate With Your Apps
                     </h2>
                     <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
@@ -55,10 +55,10 @@ export const DeveloperAPI = () => {
 
                 <div className="grid gap-8 lg:grid-cols-5">
                     {/* Code Snippet */}
-                    <div className="lg:col-span-3 border-4 border-foreground bg-foreground p-6 shadow-md">
+                    <div className="lg:col-span-3 bg-primary text-primary-foreground rounded-lg p-6 shadow-md">
                         <div className="mb-4 flex items-center gap-2">
                             <Code className="h-4 w-4 text-background" />
-                            <span className="text-xs font-bold uppercase tracking-wider text-background">
+                            <span className="text-xs font-bold tracking-wide text-background">
                                 API Example
                             </span>
                         </div>
@@ -72,9 +72,9 @@ export const DeveloperAPI = () => {
                         {features.map(({ icon: Icon, title, description }) => (
                             <div
                                 key={title}
-                                className="flex items-start gap-4 border-4 border-foreground bg-card p-4 shadow-md"
+                                className="flex items-start gap-4 border border-border bg-card rounded-lg p-4 shadow-md"
                             >
-                                <div className="shrink-0 border-2 border-foreground bg-accent p-2 shadow-xs">
+                                <div className="shrink-0 bg-primary/10 rounded-lg p-2 shadow-xs">
                                     <Icon className="h-4 w-4" />
                                 </div>
                                 <div>

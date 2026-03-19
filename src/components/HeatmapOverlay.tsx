@@ -16,7 +16,7 @@ export const HeatmapOverlay = ({ heatmapBase64, originalImageUrl }: HeatmapOverl
             <div className="flex items-center gap-4">
                 <button
                     onClick={() => setShowHeatmap(!showHeatmap)}
-                    className={`inline-flex items-center gap-2 border-2 border-foreground px-3 py-1.5 text-xs font-bold uppercase tracking-wide shadow-xs transition-colors ${showHeatmap ? "bg-destructive text-destructive-foreground" : "bg-background hover:bg-accent"
+                    className={`inline-flex items-center gap-2 border border-border rounded-md px-3 py-1.5 text-xs font-bold tracking-wide shadow-xs transition-colors ${showHeatmap ? "bg-destructive text-destructive-foreground" : "bg-background hover:bg-accent"
                         }`}
                 >
                     {showHeatmap ? <Eye className="h-3.5 w-3.5" /> : <EyeOff className="h-3.5 w-3.5" />}
@@ -41,7 +41,7 @@ export const HeatmapOverlay = ({ heatmapBase64, originalImageUrl }: HeatmapOverl
             </div>
 
             {/* Image Display */}
-            <div className="relative border-4 border-foreground overflow-hidden shadow-md">
+            <div className="relative border border-border rounded-lg overflow-hidden shadow-md">
                 {/* Heatmap image (blended on backend) */}
                 {showHeatmap ? (
                     <img
@@ -66,9 +66,9 @@ export const HeatmapOverlay = ({ heatmapBase64, originalImageUrl }: HeatmapOverl
 
                 {/* Legend */}
                 {showHeatmap && (
-                    <div className="absolute bottom-3 right-3 border-2 border-foreground bg-background/90 px-3 py-2 text-xs font-bold uppercase">
+                    <div className="absolute bottom-3 right-3 border border-border bg-background rounded-md/90 px-3 py-2 text-xs font-bold uppercase">
                         <div className="flex items-center gap-2">
-                            <div className="flex h-3 w-20 overflow-hidden border border-foreground">
+                            <div className="flex h-3 w-20 overflow-hidden border border-border rounded-md">
                                 <div className="w-1/4 bg-blue-600" />
                                 <div className="w-1/4 bg-green-500" />
                                 <div className="w-1/4 bg-yellow-400" />

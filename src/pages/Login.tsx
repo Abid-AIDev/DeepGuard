@@ -44,17 +44,17 @@ const Login = () => {
         <div className="min-h-screen bg-background">
             <Header />
 
-            <section className="border-b-4 border-foreground bg-muted">
+            <section className="border-b border-border bg-muted">
                 <div className="container flex items-center justify-center py-16 md:py-24">
                     <div className="w-full max-w-md">
-                        <div className="border-4 border-foreground bg-card p-8 shadow-lg">
+                        <div className="border border-border bg-card rounded-lg p-8 shadow-lg">
                             {/* Header */}
                             <div className="mb-8 text-center">
-                                <div className="mx-auto mb-4 inline-flex items-center gap-2 border-2 border-foreground bg-background px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-xs">
+                                <div className="mx-auto mb-4 inline-flex items-center gap-2 border border-border bg-background rounded-md px-3 py-1 text-xs font-bold tracking-wide shadow-xs">
                                     <Shield className="h-3 w-3" />
                                     DeepGuard AI
                                 </div>
-                                <h1 className="text-2xl font-bold uppercase tracking-tight">
+                                <h1 className="text-2xl font-extrabold tracking-tight">
                                     Sign In
                                 </h1>
                                 <p className="mt-2 text-sm text-muted-foreground">
@@ -75,7 +75,7 @@ const Login = () => {
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         required
-                                        className="border-2 border-foreground"
+                                        className="border border-border rounded-md"
                                     />
                                 </div>
 
@@ -90,14 +90,14 @@ const Login = () => {
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         required
-                                        className="border-2 border-foreground"
+                                        className="border border-border rounded-md"
                                     />
                                 </div>
 
                                 <Button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full border-4 border-foreground bg-foreground text-background font-bold uppercase tracking-wide shadow-md hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow-sm"
+                                    className="w-full bg-primary text-primary-foreground rounded-lg text-background font-bold tracking-wide shadow-md hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 active:shadow-sm"
                                 >
                                     {isSubmitting ? (
                                         <span className="flex items-center gap-2">

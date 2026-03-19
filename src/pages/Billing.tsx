@@ -144,31 +144,31 @@ const Billing = () => {
         <div className="min-h-screen bg-background">
             <Header />
 
-            <section className="border-b-4 border-foreground bg-muted">
+            <section className="border-b border-border bg-muted">
                 <div className="container py-12 md:py-16">
                     <Link
                         to="/dashboard"
-                        className="mb-8 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
+                        className="mb-8 inline-flex items-center gap-2 text-sm font-bold tracking-wide text-muted-foreground transition-colors hover:text-foreground"
                     >
                         <ArrowLeft className="h-4 w-4" />
                         Back to Dashboard
                     </Link>
 
-                    <h1 className="text-4xl font-bold uppercase leading-tight tracking-tight md:text-5xl mb-2">
+                    <h1 className="text-4xl font-extrabold leading-tight tracking-tight md:text-5xl mb-2">
                         Billing & <span className="text-muted-foreground">Usage</span>
                     </h1>
 
                     <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                         {/* Current Plan */}
-                        <div className="border-4 border-foreground bg-card p-6 shadow-md">
-                            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground mb-4">
+                        <div className="border border-border bg-card rounded-lg p-6 shadow-md">
+                            <div className="flex items-center gap-2 text-xs font-bold tracking-wide text-muted-foreground mb-4">
                                 <CreditCard className="h-4 w-4" />
                                 Current Plan
                             </div>
                             <div className="flex items-center gap-3 mb-3">
                                 <PlanIcon className={cn("h-8 w-8", config.color)} />
                                 <div>
-                                    <h2 className={cn("text-2xl font-bold uppercase", config.color)}>{config.label}</h2>
+                                    <h2 className={cn("text-2xl font-bold", config.color)}>{config.label}</h2>
                                     <span
                                         className={cn(
                                             "inline-block border px-2 py-0.5 text-[10px] font-bold uppercase mt-1",
@@ -197,8 +197,8 @@ const Billing = () => {
                         </div>
 
                         {/* Usage Meter */}
-                        <div className="border-4 border-foreground bg-card p-6 shadow-md">
-                            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground mb-4">
+                        <div className="border border-border bg-card rounded-lg p-6 shadow-md">
+                            <div className="flex items-center gap-2 text-xs font-bold tracking-wide text-muted-foreground mb-4">
                                 <TrendingUp className="h-4 w-4" />
                                 Usage This Month
                             </div>
@@ -212,7 +212,7 @@ const Billing = () => {
                             </div>
                             {scanLimit > 0 && (
                                 <>
-                                    <div className="h-4 w-full border-2 border-foreground bg-muted overflow-hidden">
+                                    <div className="h-4 w-full border border-border rounded-md bg-muted overflow-hidden">
                                         <div
                                             className={cn(
                                                 "h-full transition-all duration-500",
@@ -243,8 +243,8 @@ const Billing = () => {
                         </div>
 
                         {/* Quick Stats */}
-                        <div className="border-4 border-foreground bg-card p-6 shadow-md">
-                            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground mb-4">
+                        <div className="border border-border bg-card rounded-lg p-6 shadow-md">
+                            <div className="flex items-center gap-2 text-xs font-bold tracking-wide text-muted-foreground mb-4">
                                 <Shield className="h-4 w-4" />
                                 Plan Features
                             </div>
@@ -286,9 +286,9 @@ const Billing = () => {
                     </div>
 
                     {/* Invoice History */}
-                    <div className="mt-8 border-4 border-foreground bg-card shadow-md">
-                        <div className="border-b-2 border-foreground p-4">
-                            <h3 className="text-lg font-bold uppercase">Invoice History</h3>
+                    <div className="mt-8 border border-border bg-card rounded-lg shadow-md">
+                        <div className="border-b border-border p-4">
+                            <h3 className="text-lg font-bold">Invoice History</h3>
                         </div>
                         <div className="p-8 text-center text-muted-foreground">
                             <CreditCard className="mx-auto h-8 w-8 mb-2 opacity-50" />
@@ -302,8 +302,8 @@ const Billing = () => {
             {/* Upgrade Modal */}
             {showUpgradeModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/50 p-4">
-                    <div className="w-full max-w-md border-4 border-foreground bg-card p-8 shadow-lg">
-                        <h2 className="text-2xl font-bold uppercase mb-2">Confirm Upgrade</h2>
+                    <div className="w-full max-w-md border border-border bg-card rounded-lg p-8 shadow-lg">
+                        <h2 className="text-2xl font-bold mb-2">Confirm Upgrade</h2>
                         <p className="text-muted-foreground mb-6">
                             Upgrade to{" "}
                             <strong className="text-foreground">
@@ -311,7 +311,7 @@ const Billing = () => {
                             </strong>
                             ? Your new plan takes effect immediately.
                         </p>
-                        <div className="border-2 border-dashed border-foreground/30 bg-muted/50 p-4 mb-6 text-sm">
+                        <div className="border border-dashed border-border bg-muted/50 p-4 mb-6 text-sm">
                             <div className="flex justify-between mb-1">
                                 <span className="text-muted-foreground">Plan</span>
                                 <span className="font-bold">{PLAN_CONFIG[upgradePlan]?.label}</span>
@@ -351,12 +351,12 @@ const Billing = () => {
                 </div>
             )}
 
-            <footer className="border-t-4 border-foreground bg-card">
+            <footer className="border-t border-border bg-card">
                 <div className="container py-8">
                     <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
                         <div className="flex items-center gap-2">
                             <Shield className="h-5 w-5" />
-                            <span className="font-bold uppercase tracking-wider">DeepGuard AI</span>
+                            <span className="font-bold tracking-wide">DeepGuard AI</span>
                         </div>
                         <p className="text-sm text-muted-foreground">© 2026 DeepGuard AI</p>
                     </div>

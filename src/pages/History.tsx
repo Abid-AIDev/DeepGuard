@@ -94,11 +94,11 @@ const History = () => {
         <div className="min-h-screen bg-background">
             <Header />
 
-            <section className="border-b-4 border-foreground bg-muted">
+            <section className="border-b border-border bg-muted">
                 <div className="container py-12">
                     <Link
                         to="/dashboard"
-                        className="mb-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground"
+                        className="mb-6 inline-flex items-center gap-2 text-sm font-bold tracking-wide text-muted-foreground transition-colors hover:text-foreground"
                     >
                         <ArrowLeft className="h-4 w-4" />
                         Back to Dashboard
@@ -106,7 +106,7 @@ const History = () => {
 
                     <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div>
-                            <h1 className="text-3xl font-bold uppercase tracking-tight">
+                            <h1 className="text-3xl font-extrabold tracking-tight">
                                 Scan History
                             </h1>
                             <p className="mt-1 text-sm text-muted-foreground">
@@ -126,8 +126,8 @@ const History = () => {
                             <button
                                 key={label}
                                 onClick={() => { setFilterVerdict(value); setLoading(true); }}
-                                className={`border-2 border-foreground px-3 py-1 text-xs font-bold uppercase tracking-wider transition-all ${filterVerdict === value
-                                        ? "bg-foreground text-background"
+                                className={`border border-border rounded-md px-3 py-1 text-xs font-bold tracking-wide transition-all ${filterVerdict === value
+                                        ? "bg-primary text-primary-foreground"
                                         : "bg-background hover:bg-accent"
                                     }`}
                             >
@@ -140,11 +140,11 @@ const History = () => {
                     {loading ? (
                         <div className="space-y-3">
                             {[1, 2, 3, 4, 5].map((i) => (
-                                <div key={i} className="h-16 animate-pulse border-4 border-foreground/20 bg-accent" />
+                                <div key={i} className="h-16 animate-pulse border border-border/30 rounded-lg bg-accent" />
                             ))}
                         </div>
                     ) : scans.length === 0 ? (
-                        <div className="border-4 border-dashed border-foreground/30 p-12 text-center">
+                        <div className="border-2 border-dashed border-border p-12 text-center">
                             <ScanSearch className="mx-auto h-12 w-12 text-muted-foreground" />
                             <p className="mt-4 font-bold uppercase text-muted-foreground">
                                 {filterVerdict ? "No scans match this filter" : "No scans yet"}
@@ -162,7 +162,7 @@ const History = () => {
                                 const config = verdictConfig[scan.verdict] || verdictConfig.UNVERIFIED;
                                 const isExpanded = expandedId === scan.id;
                                 return (
-                                    <div key={scan.id} className="border-4 border-foreground bg-card shadow-sm">
+                                    <div key={scan.id} className="border border-border bg-card rounded-lg shadow-sm">
                                         <button
                                             onClick={() => setExpandedId(isExpanded ? null : scan.id)}
                                             className="flex w-full items-center justify-between p-4 text-left hover:bg-accent/50"
@@ -193,13 +193,13 @@ const History = () => {
                                         </button>
 
                                         {isExpanded && (
-                                            <div className="border-t-2 border-foreground p-4">
+                                            <div className="border-t border-border p-4">
                                                 {/* Reasons */}
                                                 <h4 className="mb-2 text-sm font-bold uppercase">Analysis</h4>
                                                 <ul className="mb-4 space-y-1">
                                                     {scan.reasons.map((reason, i) => (
                                                         <li key={i} className="flex items-start gap-2 text-sm">
-                                                            <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center border border-foreground bg-accent font-mono text-[10px] font-bold">
+                                                            <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center bg-primary/10 rounded-md font-mono text-[10px] font-bold">
                                                                 {i + 1}
                                                             </span>
                                                             {reason}
@@ -209,19 +209,19 @@ const History = () => {
 
                                                 {/* Model Info */}
                                                 <div className="mb-4 grid grid-cols-2 gap-2 text-sm sm:grid-cols-4">
-                                                    <div className="border-2 border-foreground p-2">
+                                                    <div className="border border-border rounded-md p-2">
                                                         <p className="text-[10px] font-bold uppercase text-muted-foreground">Model</p>
                                                         <p className="font-mono text-xs">{(scan.detection_data as Record<string, string>).model_name || "ViT-v2"}</p>
                                                     </div>
-                                                    <div className="border-2 border-foreground p-2">
+                                                    <div className="border border-border rounded-md p-2">
                                                         <p className="text-[10px] font-bold uppercase text-muted-foreground">Score</p>
                                                         <p className="font-mono text-xs">{Number((scan.detection_data as Record<string, number>).score || 0).toFixed(3)}</p>
                                                     </div>
-                                                    <div className="border-2 border-foreground p-2">
+                                                    <div className="border border-border rounded-md p-2">
                                                         <p className="text-[10px] font-bold uppercase text-muted-foreground">Label</p>
                                                         <p className="font-mono text-xs">{(scan.detection_data as Record<string, string>).label || "—"}</p>
                                                     </div>
-                                                    <div className="border-2 border-foreground p-2">
+                                                    <div className="border border-border rounded-md p-2">
                                                         <p className="text-[10px] font-bold uppercase text-muted-foreground">Time</p>
                                                         <p className="font-mono text-xs">{scan.processing_time_ms}ms</p>
                                                     </div>
@@ -246,12 +246,12 @@ const History = () => {
                 </div>
             </section>
 
-            <footer className="border-t-4 border-foreground bg-card">
+            <footer className="border-t border-border bg-card">
                 <div className="container py-8">
                     <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
                         <div className="flex items-center gap-2">
                             <Shield className="h-5 w-5" />
-                            <span className="font-bold uppercase tracking-wider">DeepGuard AI</span>
+                            <span className="font-bold tracking-wide">DeepGuard AI</span>
                         </div>
                         <p className="text-sm text-muted-foreground">© 2026 DeepGuard AI.</p>
                     </div>
