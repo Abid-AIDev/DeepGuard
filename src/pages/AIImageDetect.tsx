@@ -289,34 +289,7 @@ const AIImageDetect = () => {
                                                 );
                                             })()}
 
-                                            {/* 3-bar breakdown */}
-                                            <div className="space-y-3 mb-6">
-                                                <h3 className="text-xs font-bold tracking-wide text-muted-foreground">
-                                                    Classification Breakdown
-                                                </h3>
-                                                {barConfig.map(({ key, label, color, icon: BarIcon }) => {
-                                                    const score = result.breakdown[key];
-                                                    return (
-                                                        <div key={key}>
-                                                            <div className="flex items-center justify-between mb-1">
-                                                                <span className="flex items-center gap-2 text-xs font-bold tracking-wide">
-                                                                    <BarIcon className="h-3.5 w-3.5" />
-                                                                    {label}
-                                                                </span>
-                                                                <span className="font-mono text-sm font-bold">
-                                                                    {(score * 100).toFixed(1)}%
-                                                                </span>
-                                                            </div>
-                                                            <div className="h-4 w-full border border-border rounded-md bg-muted overflow-hidden">
-                                                                <div
-                                                                    className={`h-full ${color} transition-all duration-700 ease-out`}
-                                                                    style={{ width: `${score * 100}%` }}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    );
-                                                })}
-                                            </div>
+
 
                                             {/* Reasons */}
                                             <div className="border-t border-border pt-4">
