@@ -2,7 +2,9 @@
  * Client-side Deepfake Detection using Transformers.js
  *
  * Runs the HuggingFace ViT model directly in the browser via ONNX Runtime Web.
- * Model is cached in IndexedDB after first download (~350MB).
+ * Model: Deep-Fake-Detector-v2 (ViT-Base patch16, 224×224)
+ * Improved threshold logic: requires ≥70% confidence for definitive verdicts.
+ * Model is cached in IndexedDB after first download.
  */
 
 import { pipeline, env, type ImageClassificationOutput } from "@huggingface/transformers";
@@ -118,9 +120,13 @@ export async function detectDeepfake(imageSource: string | File | Blob): Promise
     try {
         const results: ImageClassificationOutput = await classifier(imageUrl);
 
-        // results = [{ label: "Realism", score: 0.03 }, { label: "Deepfake", score: 0.97 }]
-        const fakeResult = results.find((r: any) => r.label === "Deepfake");
-        const realResult = results.find((r: any) => r.label === "Realism");
+        // Flexible label matching: supports both "Realism"/"Deepfake" and "Real"/"Deepfake" labels
+        const fakeResult = results.find((r: any) =>
+            r.label.toLowerCase().includes("deepfake") || r.label.toLowerCase().includes("fake")
+        );
+        const realResult = results.find((r: any) =>
+            r.label.toLowerCase().includes("real") || r.label.toLowerCase().includes("realism")
+        );
 
         const fakeScore = fakeResult?.score ?? 0;
         const realScore = realResult?.score ?? 0;
@@ -129,9 +135,10 @@ export async function detectDeepfake(imageSource: string | File | Blob): Promise
 
         const processingTime = Math.round(performance.now() - start);
 
-        // Determine verdict
+        // Determine verdict — require ≥70% confidence for definitive classification
+        // This eliminates false positives from borderline scores (e.g. 52% vs 48%)
         let verdict: DetectionResult["verdict"];
-        if (confidence >= 0.6) {
+        if (confidence >= 0.70) {
             verdict = isDeepfake ? "VERIFIED_AI" : "VERIFIED_REAL";
         } else {
             verdict = "UNVERIFIED";
@@ -149,7 +156,7 @@ export async function detectDeepfake(imageSource: string | File | Blob): Promise
             },
             detection: {
                 model_name: "Deep-Fake-Detector-v2",
-                model_version: "2.0.0",
+                model_version: "2.1.0",
                 score: isDeepfake ? fakeScore : realScore,
                 label: isDeepfake ? "AI_GENERATED" : "LIKELY_REAL",
                 artifact_types: detectArtifacts(isDeepfake, confidence),

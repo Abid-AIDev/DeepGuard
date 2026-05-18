@@ -55,22 +55,25 @@ const VerdictBadge = ({ verdict, confidence }: { verdict: VerificationData["verd
       label: "Deepfake Detected",
       bgClass: "bg-chart-1/10 border-chart-1",
       textClass: "text-chart-1",
+      subtitle: "",
     },
     VERIFIED_REAL: {
       icon: CheckCircle2,
       label: "Authentic Image",
       bgClass: "bg-chart-2/10 border-chart-2",
       textClass: "text-chart-2",
+      subtitle: "",
     },
     UNVERIFIED: {
-      icon: HelpCircle,
+      icon: AlertTriangle,
       label: "Inconclusive",
-      bgClass: "bg-chart-4/10 border-chart-4",
-      textClass: "text-chart-4",
+      bgClass: "bg-amber-500/10 border-amber-500",
+      textClass: "text-amber-500",
+      subtitle: "Confidence too low for definitive classification. Manual review recommended.",
     },
   };
 
-  const { icon: Icon, label, bgClass, textClass } = config[verdict];
+  const { icon: Icon, label, bgClass, textClass, subtitle } = config[verdict];
 
   return (
     <div className={cn("border-4 p-6 text-center shadow-md", bgClass)}>
@@ -78,6 +81,9 @@ const VerdictBadge = ({ verdict, confidence }: { verdict: VerificationData["verd
       <h2 className={cn("mt-3 text-2xl font-bold tracking-wide", textClass)}>
         {label}
       </h2>
+      {subtitle && (
+        <p className="mt-2 text-sm text-muted-foreground">{subtitle}</p>
+      )}
       <div className="mt-4">
         <div className="flex items-center justify-between text-sm font-medium">
           <span>Confidence</span>

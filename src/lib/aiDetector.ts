@@ -128,6 +128,13 @@ function generateAIReasons(
 ): string[] {
     const reasons: string[] = [];
 
+    // Add low-confidence warning first if applicable
+    if (confidence < 0.70 && confidence >= 0.40) {
+        reasons.push("⚠️ Low confidence result — manual review recommended");
+    } else if (confidence < 0.40) {
+        reasons.push("⚠️ Very low confidence — result is inconclusive");
+    }
+
     if (verdict === "Artificial") {
         if (confidence > 0.9) {
             reasons.push("Strong indicators of AI generation detected");
@@ -135,10 +142,13 @@ function generateAIReasons(
             reasons.push("Texture and noise patterns typical of diffusion-based image synthesis");
         } else if (confidence > 0.7) {
             reasons.push("Moderate indicators of AI generation");
-            reasons.push("Image features suggest possible AI synthesis");
+            reasons.push("Image features suggest probable AI synthesis");
+        } else if (confidence > 0.5) {
+            reasons.push("Weak AI generation indicators present — result is borderline");
+            reasons.push("Image shows some characteristics common in AI-generated content, but confidence is low");
+            reasons.push("Consider using the Forensics Toolkit for additional verification");
         } else {
-            reasons.push("Weak AI generation indicators present");
-            reasons.push("Image shows some characteristics common in AI-generated content");
+            reasons.push("Very weak AI indicators — classification is unreliable at this confidence level");
         }
     } else if (verdict === "Deepfake") {
         if (confidence > 0.9) {
@@ -148,7 +158,8 @@ function generateAIReasons(
             reasons.push("Moderate deepfake indicators detected");
             reasons.push("Some facial regions appear manipulated");
         } else {
-            reasons.push("Minor deepfake indicators present");
+            reasons.push("Minor deepfake indicators present — confidence is low");
+            reasons.push("Consider verifying with the dedicated Deepfake Scanner for more accurate results");
         }
     } else {
         if (confidence > 0.9) {
@@ -160,6 +171,7 @@ function generateAIReasons(
             reasons.push("Most features consistent with real photography");
         } else {
             reasons.push("Analysis inconclusive — features don't strongly indicate any category");
+            reasons.push("Consider using the Forensics Toolkit for deeper analysis");
         }
     }
 

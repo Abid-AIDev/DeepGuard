@@ -279,6 +279,12 @@ const AIImageDetect = () => {
                                                             </span>
                                                         </div>
                                                         <p className="text-sm text-muted-foreground">{config.description}</p>
+                                                        {result.confidence < 0.70 && (
+                                                            <div className="mt-3 flex items-center gap-2 border border-amber-500/30 bg-amber-500/5 p-2 text-xs text-amber-500 font-medium">
+                                                                <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                                                                Low confidence — consider using the Forensics Toolkit for deeper analysis
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 );
                                             })()}
